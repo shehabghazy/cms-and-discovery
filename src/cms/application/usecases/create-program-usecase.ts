@@ -1,11 +1,11 @@
 import { CommandUseCase } from '../../../shared/index.js';
 import type { ProgramDto, ProgramCreateDto } from '../contracts/create-program-contract.js';
-import { Program, ProgramType, ProgramStatus, type ProgramRepository } from '../../domain/index.js';
+import { Program, ProgramType, type ProgramRepository } from '../../domain/index.js';
 import { toProgramDto } from '../mappers/program-mapper.js';
 import { ConflictError } from '../../../shared/application/usecase-errors.js';
 
 export type CreateProgramInput = { programData: ProgramCreateDto };
-export type CreateProgramOutput = { programData: ProgramDto };
+export type CreateProgramOutput = { program: ProgramDto };
 
 export class CreateProgramUseCase extends CommandUseCase<CreateProgramInput, CreateProgramOutput> {
   constructor(private readonly repo: ProgramRepository) {
@@ -26,12 +26,14 @@ export class CreateProgramUseCase extends CommandUseCase<CreateProgramInput, Cre
       title: input.programData.title,
       type: input.programData.type as ProgramType,
       slug: input.programData.slug,
-      status: (input.programData.status as ProgramStatus) ?? ProgramStatus.DRAFT
+      description: input.programData.description || null,
+      cover: input.programData.cover || null,
+      language: input.programData.language || 'ar' // Default to Arabic
     });
     
 
     await this.repo.save(program);
     
-    return { programData: toProgramDto(program) };
+    return { program: toProgramDto(program) };
   }
 }

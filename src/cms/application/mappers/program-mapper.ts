@@ -8,6 +8,10 @@ export const toProgramDto = (program: Program): ProgramDto => ({
   type: program.type,
   slug: program.slug,
   status: program.status,
+  description: program.description,
+  cover: program.cover,
+  language: program.language,
+  published_at: program.published_at?.toISOString() ?? null,
   created_at: program.created_at.toISOString(),
   updated_at: program.updated_at?.toISOString() ?? null,
 });

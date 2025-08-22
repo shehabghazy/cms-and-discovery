@@ -1,7 +1,8 @@
 export enum ProgramType {
   PODCAST = 'podcast',
   DOCUMENTARY = 'documentary',
-  YOUTUBE = 'youtube'
+  YOUTUBE = 'youtube',
+  SERIES = 'series'
 }
 
 export enum ProgramStatus {

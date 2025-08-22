@@ -1,9 +1,6 @@
 import type { FastifyInstance } from 'fastify';
-import { 
-  ProgramCreateDto, 
-  ProgramDto, 
-  CreateProgramUseCase 
-} from '../application/index.js';
+import { ProgramCreateDto, ProgramDto } from '../application/index.js';
+import { CreateProgramUseCase } from '../application/index.js';
 import { type ProgramRepository } from '../domain/index.js';
 import { ErrorSchema } from '../../shared/api/error-schema.js';
 
@@ -15,6 +12,9 @@ export function registerCreateProgramRoute(app: FastifyInstance, dependencies: {
 
   app.post('/programs', {
     schema: {
+      tags: ['Programs'],
+      summary: 'Create a new program',
+      description: 'Creates a new program with the provided details',
       body: ProgramCreateDto,
       response: {
         201: ProgramDto,
@@ -26,8 +26,8 @@ export function registerCreateProgramRoute(app: FastifyInstance, dependencies: {
     const result = await createProgramUseCase.execute({ 
       programData: req.body as any
     });
-    return reply.code(201).send(result.programData);
+    return reply.code(201).send(result.program);
   });
 
-  app.log.info('Program routes registered');
+  console.log('Create program route registered');
 }

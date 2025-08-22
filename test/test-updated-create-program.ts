@@ -25,8 +25,7 @@ async function testUpdatedCreateProgram(): Promise<void> {
   const programData: ProgramCreateDto = {
     title: 'Advanced TypeScript Course',
     type: 'podcast',
-    slug: 'advanced-typescript-course',
-    status: 'draft'
+    slug: 'advanced-typescript-course'
   };
 
   try {

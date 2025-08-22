@@ -12,7 +12,10 @@ export const isValidSlug = (s: string): boolean =>
   typeof s === 'string' && 
   s.trim().length > 0 && 
   /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s.trim()) &&
-  s.trim().length <= 100;
+  s.trim().length <= 80;
+
+export const isValidLanguageCode = (s: string): boolean =>
+  typeof s === 'string' && /^[a-z]{2}$/.test(s);
 
 export const isEnumValue = <T extends object>(e: T, v: unknown): v is T[keyof T] =>
   Object.values(e as any).includes(v as any);

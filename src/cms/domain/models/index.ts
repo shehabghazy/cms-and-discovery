@@ -1,9 +1,15 @@
 export { 
   type ProgramCreateInput,
+  validateProgramCreate
+} from './program-create-input.js';
+export { 
   type ProgramUpdateInput,
-  validateProgramCreate,
   validateProgramUpdate
-} from './program-dto.js';
+} from './program-update-input.js';
+export { 
+  type ProgramChangeStatusInput,
+  validateProgramChangeStatus
+} from './program-change-status-input.js';
 export { 
   type EpisodeMetadata, 
   type EpisodeCreateInput,

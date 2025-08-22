@@ -8,7 +8,12 @@ async function testCreateProgramWithValidation(): Promise<void> {
   const mockRepo = {
     save: async (program: any) => {
       console.log('📝 Saving program to repository:', program.title);
-    }
+    },
+    findById: async (id: string) => null,
+    findBySlug: async (slug: string) => null,
+    findMany: async () => ({ programs: [], total: 0 }),
+    delete: async (id: string) => true,
+    existsBySlug: async (slug: string) => false
   };
 
   const createUseCase = new CreateProgramUseCase(mockRepo);

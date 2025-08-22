@@ -31,7 +31,7 @@ async function testAPI() {
     });
 
     if (createResponse.ok) {
-      const createdProgram = await createResponse.json();
+      const createdProgram = await createResponse.json() as any;
       console.log('✅ Program created successfully:');
       console.log('  - ID:', createdProgram.id);
       console.log('  - Title:', createdProgram.title);

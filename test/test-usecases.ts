@@ -1,60 +1,50 @@
 import { 
   CreateProgramUseCase,
   UpdateProgramUseCase,
-  DeleteProgramUseCase,
-  ListProgramsUseCase
+  ChangeProgramStatusUseCase
 } from '../src/cms/application/index.js';
 import { ProgramType, ProgramStatus } from '../src/cms/domain/index.js';
+import { InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
 
 async function testProgramUseCases(): Promise<void> {
   console.log('🚀 Testing Program Use Cases\n');
 
+  const programRepository = new InMemoryProgramRepository();
+
   // Test CreateProgramUseCase
   console.log('📝 Testing CreateProgramUseCase...');
-  const createUseCase = new CreateProgramUseCase();
+  const createUseCase = new CreateProgramUseCase(programRepository);
   const createResult = await createUseCase.execute({
     programData: {
-      id: '550e8400-e29b-41d4-a716-446655440000',
       title: 'Tech Talk Podcast',
-      type: ProgramType.PODCAST,
-      slug: 'tech-talk-podcast',
-      status: ProgramStatus.DRAFT
+      type: 'podcast',
+      slug: 'tech-talk-podcast'
     }
   });
   console.log('Created program:', createResult.program.title);
   
   // Test UpdateProgramUseCase
   console.log('\n✏️ Testing UpdateProgramUseCase...');
-  const updateUseCase = new UpdateProgramUseCase();
+  const updateUseCase = new UpdateProgramUseCase(programRepository);
   const updateResult = await updateUseCase.execute({
-    programId: '550e8400-e29b-41d4-a716-446655440000',
+    programId: createResult.program.id,
     updateData: {
-      title: 'Updated Tech Talk Podcast',
-      status: ProgramStatus.PUBLISHED
+      title: 'Updated Tech Talk Podcast'
     }
   });
   console.log('Updated program:', updateResult.program.title);
-  console.log('New status:', updateResult.program.status);
   
-  // Test DeleteProgramUseCase
-  console.log('\n🗑️ Testing DeleteProgramUseCase...');
-  const deleteUseCase = new DeleteProgramUseCase();
-  const deleteResult = await deleteUseCase.execute({
-    programId: '550e8400-e29b-41d4-a716-446655440000'
+  // Test ChangeProgramStatusUseCase
+  console.log('\n� Testing ChangeProgramStatusUseCase...');
+  const changeStatusUseCase = new ChangeProgramStatusUseCase(programRepository);
+  const statusResult = await changeStatusUseCase.execute({
+    programId: createResult.program.id,
+    statusData: {
+      status: 'published'
+    }
   });
-  console.log('Delete success:', deleteResult.success);
-  
-  // Test ListProgramsUseCase
-  console.log('\n📋 Testing ListProgramsUseCase...');
-  const listUseCase = new ListProgramsUseCase();
-  const listResult = await listUseCase.execute({
-    page: 1,
-    limit: 10,
-    type: 'podcast'
-  });
-  console.log('Programs found:', listResult.programs.length);
-  console.log('Total programs:', listResult.total);
-  console.log('Page:', listResult.page);
+  console.log('Status changed to:', statusResult.program.status);
+  console.log('Published at:', statusResult.program.published_at);
   
   console.log('\n✅ All use cases tested successfully!');
 }

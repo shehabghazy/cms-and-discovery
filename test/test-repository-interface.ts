@@ -57,8 +57,7 @@ async function testWithProgramRepository(): Promise<void> {
   const programData: ProgramCreateDto = {
     title: 'TypeScript Mastery Course',
     type: 'podcast',
-    slug: 'typescript-mastery-course',
-    status: 'draft'
+    slug: 'typescript-mastery-course'
   };
 
   try {

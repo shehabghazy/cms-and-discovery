@@ -18,15 +18,14 @@ async function testCompleteFlow() {
       programData: {
         title: 'My Awesome Podcast',
         type: 'podcast',
-        slug: 'my-awesome-podcast',
-        status: 'draft'
+        slug: 'my-awesome-podcast'
       }
     });
     
-    console.log('   Program created:', result.programData.title);
-    console.log('   ID:', result.programData.id);
-    console.log('   Status:', result.programData.status);
-    console.log('   Created at:', result.programData.created_at);
+    console.log('   Program created:', result.program.title);
+    console.log('   ID:', result.program.id);
+    console.log('   Status:', result.program.status);
+    console.log('   Created at:', result.program.created_at);
   } catch (error) {
     console.error('   ❌ Unexpected error:', error);
     return;
@@ -39,8 +38,7 @@ async function testCompleteFlow() {
       programData: {
         title: 'Another Podcast',
         type: 'podcast',
-        slug: 'my-awesome-podcast', // Same slug
-        status: 'draft'
+        slug: 'my-awesome-podcast' // Same slug
       }
     });
     console.error('   ❌ Should have thrown ConflictError');
@@ -59,8 +57,7 @@ async function testCompleteFlow() {
       programData: {
         title: '', // Invalid empty title
         type: 'podcast',
-        slug: 'empty-title-podcast',
-        status: 'draft'
+        slug: 'empty-title-podcast'
       }
     });
     console.error('   ❌ Should have thrown DomainValidationError');
@@ -83,8 +80,7 @@ async function testCompleteFlow() {
         programData: {
           title: `Performance Test Program ${i}`,
           type: 'youtube',
-          slug: `performance-test-${i}`,
-          status: 'published'
+          slug: `performance-test-${i}`
         }
       })
     );

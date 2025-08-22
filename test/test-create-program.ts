@@ -7,7 +7,12 @@ async function testCreateProgramWithContracts(): Promise<void> {
   const mockRepo = {
     save: async (program: any) => {
       console.log('📝 Saving program to repository:', program.title);
-    }
+    },
+    findById: async (id: string) => null,
+    findBySlug: async (slug: string) => null,
+    findMany: async () => ({ programs: [], total: 0 }),
+    delete: async (id: string) => true,
+    existsBySlug: async (slug: string) => false
   };
 
   const createUseCase = new CreateProgramUseCase(mockRepo);
@@ -16,8 +21,7 @@ async function testCreateProgramWithContracts(): Promise<void> {
   const programData: ProgramCreateDto = {
     title: 'Advanced TypeScript Course',
     type: 'podcast',
-    slug: 'advanced-typescript-course',
-    status: 'draft'
+    slug: 'advanced-typescript-course'
   };
 
   try {

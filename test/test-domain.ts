@@ -8,8 +8,7 @@ function testDomainEntities(): void {
     id: '550e8400-e29b-41d4-a716-446655440000',
     title: 'Tech Talk Podcast',
     type: ProgramType.PODCAST,
-    slug: 'tech-talk-podcast',
-    status: ProgramStatus.DRAFT
+    slug: 'tech-talk-podcast'
   });
   
   console.log('Program created:', program.toObject());
@@ -38,7 +37,11 @@ function testDomainEntities(): void {
   
   // Test Program update method
   program.update({
-    title: 'Updated Tech Talk Podcast',
+    title: 'Updated Tech Talk Podcast'
+  });
+  
+  // Test status change method
+  program.changeStatus({
     status: ProgramStatus.PUBLISHED
   });
   console.log('Program after update:', {
