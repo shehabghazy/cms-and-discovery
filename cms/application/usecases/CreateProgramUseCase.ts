@@ -1,0 +1,30 @@
+// application/use-cases/create-program.ts (use cases depend on TYPES only)
+import { CommandUseCase } from '../../../shared/index.js';
+import type { ProgramDto, ProgramCreateDto } from '../contracts/program.contract.js';
+import { Program, ProgramType, ProgramStatus } from '../../domain/index.js';
+import { toProgramDto } from '../mappers/program.mapper.js';
+
+export type CreateProgramInput = { programData: ProgramCreateDto };
+export type CreateProgramOutput = { program: ProgramDto };
+
+export class CreateProgramUseCase extends CommandUseCase<CreateProgramInput, CreateProgramOutput> {
+  constructor(private repo: any) { // TODO: Replace with ProgramRepository interface
+    super();
+  }
+  
+  async execute(input: CreateProgramInput): Promise<CreateProgramOutput> {
+    // Domain validation happens inside Program.create()
+    const program = Program.create({
+      id: crypto.randomUUID(), // Generate UUID for new program
+      title: input.programData.title,
+      type: input.programData.type as ProgramType,
+      slug: input.programData.slug,
+      status: input.programData.status as ProgramStatus
+    });
+    
+    // TODO: Implement repository save
+    // await this.repo.save(program);
+    
+    return { program: toProgramDto(program) };
+  }
+}
