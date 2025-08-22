@@ -1,4 +1,3 @@
-// application/contracts/program.contract.ts
 import { Type, Static } from '@sinclair/typebox';
 
 export const ProgramType = Type.Union([

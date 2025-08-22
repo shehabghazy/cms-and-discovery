@@ -11,12 +11,6 @@ export class InMemoryProgramRepository implements ProgramRepository {
   private readonly slugIndex = new Map<string, string>(); // slug -> id mapping for O(1) lookups
 
   async save(program: Program): Promise<void> {
-    // Check for slug conflicts with atomic operation
-    const existingIdForSlug = this.slugIndex.get(program.slug);
-    if (existingIdForSlug && existingIdForSlug !== program.id) {
-      throw new ConflictError(`Program with slug '${program.slug}' already exists`);
-    }
-
     // Update both maps atomically
     this.programs.set(program.id, program);
     this.slugIndex.set(program.slug, program.id);

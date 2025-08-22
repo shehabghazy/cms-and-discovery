@@ -2,8 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { 
   ProgramCreateDto, 
   ProgramDto, 
-  CreateProgramUseCase,
-  ConflictError 
+  CreateProgramUseCase 
 } from '../application/index.js';
 import { type ProgramRepository } from '../domain/index.js';
 import { ErrorSchema } from '../../shared/api/error-schema.js';
