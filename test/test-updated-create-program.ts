@@ -8,8 +8,8 @@ const createMockRepository = (): ProgramRepository => ({
   },
   async findById(id: string): Promise<Program | null> { return null; },
   async findBySlug(slug: string): Promise<Program | null> { return null; },
-  async findMany(): Promise<{ programs: Program[]; total: number }> { 
-    return { programs: [], total: 0 }; 
+  async findMany(): Promise<{ data: Program[]; total: number }> {
+    return { data: [], total: 0 };
   },
   async delete(id: string): Promise<boolean> { return true; },
   async existsBySlug(slug: string, excludeId?: string): Promise<boolean> { return false; }

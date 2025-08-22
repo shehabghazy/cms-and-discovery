@@ -1,8 +1,23 @@
 export { CommandUseCase } from './command-usecase.js';
 export { QueryUseCase } from './query-usecase.js';
+export { QueryListUseCase } from './pagination-query/query-list-usecase.js';
 
 export { 
-    ConflictError,
-    NotFoundError
+  ConflictError,
+  NotFoundError,
+  ValidationError
 } from './usecase-errors.js';
 
+export {
+  type PaginationOptions,
+  type PaginationMeta,
+  type QueryListInput,
+  type QueryListResult,
+  type QueryableRepository,
+  createPaginationMeta,
+  validatePaginationOptions
+} from './pagination-query/query-list.js';
+
+export { 
+  PaginationMetaSchema , 
+} from './pagination-query/pagination-schema.js';

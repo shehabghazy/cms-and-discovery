@@ -1,11 +1,13 @@
 import { Program } from '../program.js';
+import { ListProgramsFilters } from '../models/list-programs-input.js';
+import { QueryableRepository, PaginationOptions } from '../../../shared/application/pagination-query/query-list.js';
 
 /**
  * Repository interface for Program domain entity
  * This is a port (interface) that defines the contract for data persistence
  * Implementations will be provided in the infrastructure layer
  */
-export interface ProgramRepository {
+export interface ProgramRepository extends QueryableRepository<Program, ListProgramsFilters> {
   /**
    * Save a program entity to the data store
    * @param program - The program entity to save
@@ -33,10 +35,9 @@ export interface ProgramRepository {
    * @returns Promise that resolves to paginated results
    */
   findMany(options?: {
-    page?: number;
-    limit?: number;
-    filters?: { type?: string; status?: string };
-  }): Promise<{ programs: Program[]; total: number }>;
+    pagination?: PaginationOptions;
+    filters?: ListProgramsFilters;
+  }): Promise<{ data: Program[]; total: number }>;
 
   /**
    * Delete a program by its ID

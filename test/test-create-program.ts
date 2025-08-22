@@ -1,4 +1,5 @@
 import { CreateProgramUseCase, type ProgramCreateDto } from '../src/cms/application/index.js';
+import { Program } from '../src/cms/domain/index.js';
 
 async function testCreateProgramWithContracts(): Promise<void> {
   console.log('🚀 Testing CreateProgram with Contracts Pattern\n');
@@ -10,7 +11,9 @@ async function testCreateProgramWithContracts(): Promise<void> {
     },
     findById: async (id: string) => null,
     findBySlug: async (slug: string) => null,
-    findMany: async () => ({ programs: [], total: 0 }),
+      async findMany(): Promise<{ data: Program[]; total: number }> {
+    return { data: [], total: 0 };
+  },
     delete: async (id: string) => true,
     existsBySlug: async (slug: string) => false
   };

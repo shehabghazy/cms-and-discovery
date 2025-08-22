@@ -11,7 +11,9 @@ async function testCreateProgramWithValidation(): Promise<void> {
     },
     findById: async (id: string) => null,
     findBySlug: async (slug: string) => null,
-    findMany: async () => ({ programs: [], total: 0 }),
+      async findMany(): Promise<{ data: never[]; total: number }> {
+    return { data: [], total: 0 };
+  },
     delete: async (id: string) => true,
     existsBySlug: async (slug: string) => false
   };

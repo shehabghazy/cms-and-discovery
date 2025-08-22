@@ -24,13 +24,12 @@ class MockProgramRepository implements ProgramRepository {
   }
 
   async findMany(options?: {
-    page?: number;
-    limit?: number;
+    pagination?: { page: number; limit: number };
     filters?: { type?: string; status?: string };
-  }): Promise<{ programs: Program[]; total: number }> {
+  }): Promise<{ data: Program[]; total: number }> {
     console.log('📋 MockRepository: Finding programs with options:', options);
     const programs = Array.from(this.programs.values());
-    return { programs, total: programs.length };
+    return { data: programs, total: programs.length };
   }
 
   async delete(id: string): Promise<boolean> {
@@ -89,7 +88,7 @@ async function testWithProgramRepository(): Promise<void> {
     console.log('✅ Slug exists:', slugExists);
     
     // Find many
-    const { programs, total } = await programRepository.findMany();
+    const { data: programs, total } = await programRepository.findMany();
     console.log('✅ Total programs in repository:', total);
     
   } catch (error) {

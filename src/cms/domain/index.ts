@@ -6,7 +6,9 @@ import {
   type ProgramUpdateInput, 
   type EpisodeMetadata, 
   type EpisodeCreateInput,
-  type EpisodeUpdateInput
+  type EpisodeUpdateInput,
+  type ListProgramsInput,
+  type ListProgramsFilters,
 } from './models/index.js';
 import { ProgramType, ProgramStatus, Language } from './enums/index.js';
 import { ProgramRepository } from './ports/index.js';
@@ -25,6 +27,8 @@ export {
   type EpisodeMetadata,
   type EpisodeCreateInput,
   type EpisodeUpdateInput,
+  type ListProgramsInput,
+  type ListProgramsFilters,
   
   // Enums
   ProgramType,

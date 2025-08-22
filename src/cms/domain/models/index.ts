@@ -10,6 +10,11 @@ export {
   type ProgramChangeStatusInput,
   validateProgramChangeStatus
 } from './program-change-status-input.js';
+export {
+  type ListProgramsInput,
+  type ListProgramsFilters,
+  validateListProgramsInput,
+} from './list-programs-input.js';
 export { 
   type EpisodeMetadata, 
   type EpisodeCreateInput,
