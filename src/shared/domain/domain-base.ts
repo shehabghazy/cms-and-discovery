@@ -1,12 +1,12 @@
 export abstract class DomainBase {
-  public readonly id: string;
+  public id: string;
   public created_at: Date;
   public updated_at: Date | null;
 
-  constructor(id: string) {
+  constructor(id: string, created_at?: Date, updated_at?: Date | null) {
     this.id = id;
-    this.created_at = new Date();
-    this.updated_at = null;
+    this.created_at = created_at ?? new Date();
+    this.updated_at = updated_at ?? null;
   }
 
   protected touch(): void {

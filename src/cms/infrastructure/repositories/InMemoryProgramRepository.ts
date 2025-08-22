@@ -7,15 +7,19 @@ import { ConflictError } from '../../application/index.js';
  * In production, this would be replaced with a database implementation
  */
 export class InMemoryProgramRepository implements ProgramRepository {
-  private programs = new Map<string, Program>();
+  private readonly programs = new Map<string, Program>();
+  private readonly slugIndex = new Map<string, string>(); // slug -> id mapping for O(1) lookups
 
   async save(program: Program): Promise<void> {
-    // Check for slug conflicts
-    const existing = await this.findBySlug(program.slug);
-    if (existing && existing.id !== program.id) {
+    // Check for slug conflicts with atomic operation
+    const existingIdForSlug = this.slugIndex.get(program.slug);
+    if (existingIdForSlug && existingIdForSlug !== program.id) {
       throw new ConflictError(`Program with slug '${program.slug}' already exists`);
     }
+
+    // Update both maps atomically
     this.programs.set(program.id, program);
+    this.slugIndex.set(program.slug, program.id);
   }
 
   async findById(id: string): Promise<Program | null> {
@@ -23,10 +27,8 @@ export class InMemoryProgramRepository implements ProgramRepository {
   }
 
   async findBySlug(slug: string): Promise<Program | null> {
-    for (const program of this.programs.values()) {
-      if (program.slug === slug) return program;
-    }
-    return null;
+    const id = this.slugIndex.get(slug);
+    return id ? this.programs.get(id) || null : null;
   }
 
   async findMany(options?: {
@@ -58,13 +60,18 @@ export class InMemoryProgramRepository implements ProgramRepository {
   }
 
   async delete(id: string): Promise<boolean> {
-    return this.programs.delete(id);
+    const program = this.programs.get(id);
+    if (program) {
+      // Remove from both maps atomically
+      this.programs.delete(id);
+      this.slugIndex.delete(program.slug);
+      return true;
+    }
+    return false;
   }
 
   async existsBySlug(slug: string, excludeId?: string): Promise<boolean> {
-    for (const [id, program] of this.programs.entries()) {
-      if (program.slug === slug && id !== excludeId) return true;
-    }
-    return false;
+    const existingId = this.slugIndex.get(slug);
+    return existingId !== undefined && existingId !== excludeId;
   }
 }

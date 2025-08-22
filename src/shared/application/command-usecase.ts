@@ -1,6 +1,8 @@
 /**
  * Abstract base class for command use cases (operations that modify state)
- * Commands typically don't return data, they perform actions
+ * 
+ * Performance considerations:
+ * - All operations are async by default
  */
 export abstract class CommandUseCase<TInput = void, TOutput = void> {
   /**
@@ -9,4 +11,6 @@ export abstract class CommandUseCase<TInput = void, TOutput = void> {
    * @returns Promise that resolves when the command is executed
    */
   abstract execute(input: TInput): Promise<TOutput>;
+
+
 }

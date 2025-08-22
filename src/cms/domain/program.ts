@@ -1,4 +1,4 @@
-import { DomainBase } from '../../shared/domain/domain-base';
+import { DomainBase } from '../../shared/domain/domain-base.js';
 import { ProgramType, ProgramStatus } from './enums/index.js';
 import { 
   validateProgramCreate,
@@ -14,7 +14,7 @@ export class Program extends DomainBase {
   public status: ProgramStatus;
 
   private constructor(props: ReturnType<typeof validateProgramCreate>) {
-    super(props.id);
+    super(props.id, props.created_at, props.updated_at);
     this.title = props.title;
     this.type = props.type;
     this.slug = props.slug;
