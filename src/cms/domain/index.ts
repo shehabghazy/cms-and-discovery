@@ -1,17 +1,21 @@
-import { DomainBase } from '../../shared/domain/domain-base';
+import { DomainBase } from '../../shared/domain/domain-base.js';
 import { Program } from './program.js';
 import { Episode } from './episode.js';
 import { 
   type ProgramCreateInput, 
-  type ProgramUpdateInput, 
-  type EpisodeMetadata, 
+  type ProgramUpdateInput,
+  type ProgramChangeStatusInput,
   type EpisodeCreateInput,
   type EpisodeUpdateInput,
+  type EpisodeChangeStatusInput,
+  type EpisodeMoveToProgram,
   type ListProgramsInput,
   type ListProgramsFilters,
+  type ListEpisodesInput,
+  type ListEpisodesFilters,
 } from './models/index.js';
-import { ProgramType, ProgramStatus, Language } from './enums/index.js';
-import { ProgramRepository } from './ports/index.js';
+import { ProgramType, ProgramStatus, EpisodeStatus, EpisodeKind, Language } from './enums/index.js';
+import { ProgramRepository, EpisodeRepository } from './ports/index.js';
 
 export {
   // Base classes
@@ -24,17 +28,24 @@ export {
   // Types
   type ProgramCreateInput,
   type ProgramUpdateInput,
-  type EpisodeMetadata,
+  type ProgramChangeStatusInput,
   type EpisodeCreateInput,
   type EpisodeUpdateInput,
+  type EpisodeChangeStatusInput,
+  type EpisodeMoveToProgram,
   type ListProgramsInput,
   type ListProgramsFilters,
+  type ListEpisodesInput,
+  type ListEpisodesFilters,
   
   // Enums
   ProgramType,
   ProgramStatus,
+  EpisodeStatus,
+  EpisodeKind,
   Language,
   
   // Ports (Interfaces)
-  type ProgramRepository
+  type ProgramRepository,
+  type EpisodeRepository
 };

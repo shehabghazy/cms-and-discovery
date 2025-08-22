@@ -1,1 +1,1 @@
-export { InMemoryProgramRepository } from './repositories/index.js';
+export { InMemoryProgramRepository, InMemoryEpisodeRepository } from './repositories/index.js';

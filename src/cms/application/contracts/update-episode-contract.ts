@@ -1,13 +1,11 @@
 import { Type, Static } from '@sinclair/typebox';
-import { ProgramType } from './shared-types.js';
 
-// Program update input schema (for API)
-export const ProgramUpdateDto = Type.Object({
+// Episode update input schema (patch method - only updatable fields)
+export const EpisodeUpdateDto = Type.Object({
   title: Type.Optional(Type.String({ minLength: 10, maxLength: 120 })),
-  type: Type.Optional(ProgramType),
   description: Type.Optional(Type.Union([Type.String({ maxLength: 5000 }), Type.Null()])),
   cover: Type.Optional(Type.String({ format: 'uuid' })), // asset_id
-  language: Type.Optional(Type.String({ pattern: '^[a-z]{2}$' })), // ISO-639-1
+  transcripts: Type.Optional(Type.Array(Type.String({ format: 'uuid' }))), // array of asset_id UUIDs
 }, { additionalProperties: false });
 
-export type ProgramUpdateDto = Static<typeof ProgramUpdateDto>;
+export type EpisodeUpdateDto = Static<typeof EpisodeUpdateDto>;

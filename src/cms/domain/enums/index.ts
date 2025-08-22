@@ -11,6 +11,17 @@ export enum ProgramStatus {
   ARCHIVED = 'archived'
 }
 
+export enum EpisodeStatus {
+  DRAFT = 'draft',
+  PUBLISHED = 'published',
+  HIDDEN = 'hidden'
+}
+
+export enum EpisodeKind {
+  AUDIO = 'audio',
+  VIDEO = 'video'
+}
+
 export enum Language {
   ENGLISH = 'en',
   ARABIC = 'ar',

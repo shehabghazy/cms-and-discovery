@@ -11,7 +11,7 @@ export function registerChangeProgramStatusRoute(app: FastifyInstance, dependenc
 }) {
   const changeProgramStatusUseCase = new ChangeProgramStatusUseCase(dependencies.programRepository);
 
-  app.patch('/programs/:id/status', {
+  app.put('/programs/:id/status', {
     schema: {
       tags: ['Programs'],
       summary: 'Change program status',

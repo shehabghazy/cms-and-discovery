@@ -12,3 +12,14 @@ export const ProgramStatus = Type.Union([
   Type.Literal('published'),
   Type.Literal('archived'),
 ]);
+
+export const EpisodeStatus = Type.Union([
+  Type.Literal('draft'),
+  Type.Literal('published'),
+  Type.Literal('hidden'),
+]);
+
+export const EpisodeKind = Type.Union([
+  Type.Literal('audio'),
+  Type.Literal('video'),
+]);

@@ -3,3 +3,8 @@ export * from './create-program-contract.js';
 export * from './update-program-contract.js';
 export * from './change-program-status-contract.js';
 export * from './list-programs-contract.js';
+export * from './create-episode-contract.js';
+export * from './update-episode-contract.js';
+export * from './change-episode-status-contract.js';
+export * from './move-episode-to-program-contract.js';
+export * from './list-episodes-contract.js';

@@ -6,8 +6,8 @@ import swaggerUi from '@fastify/swagger-ui';
 import cors from '@fastify/cors';
 
 import { registerErrorHandler } from './shared/api/error-handler.js';
-import { registerProgramRoutes } from './cms/api/index.js';
-import { InMemoryProgramRepository } from './cms/infrastructure/index.js';
+import { registerCMSRoutes } from './cms/api/index.js';
+import { InMemoryProgramRepository, InMemoryEpisodeRepository } from './cms/infrastructure/index.js';
 
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
 const HOST: string = process.env.HOST || '0.0.0.0';
@@ -37,7 +37,8 @@ await app.register(swagger, {
     produces: ['application/json'],
     tags: [
       { name: 'General', description: 'General API endpoints' },
-      { name: 'Programs', description: 'Program management endpoints' }
+      { name: 'Programs', description: 'Program management endpoints' },
+      { name: 'Episodes', description: 'Episode management endpoints' }
     ]
   }
 });
@@ -74,9 +75,10 @@ app.get('/', {
 
 
 const programRepository = new InMemoryProgramRepository();
+const episodeRepository = new InMemoryEpisodeRepository();
 
 // --- Feature routes
-await registerProgramRoutes(app, { programRepository });
+await registerCMSRoutes(app, { programRepository, episodeRepository });
 
 // --- Graceful shutdown
 process.on('SIGINT', async () => {

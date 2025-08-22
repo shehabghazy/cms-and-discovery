@@ -15,11 +15,25 @@ export {
   type ListProgramsFilters,
   validateListProgramsInput,
 } from './list-programs-input.js';
+export {
+  type ListEpisodesInput,
+  type ListEpisodesFilters,
+  validateListEpisodesInput,
+} from './list-episodes-input.js';
 export { 
-  type EpisodeMetadata, 
   type EpisodeCreateInput,
+  validateEpisodeCreate
+} from './episode-create-input.js';
+export { 
   type EpisodeUpdateInput,
-  validateEpisodeCreate,
   validateEpisodeUpdate
-} from './episode-dto.js';
+} from './episode-update-input.js';
+export { 
+  type EpisodeChangeStatusInput,
+  validateEpisodeChangeStatus
+} from './episode-change-status-input.js';
+export { 
+  type EpisodeMoveToProgram,
+  validateEpisodeMoveToProgram
+} from './episode-move-to-program-input.js';
 export { DomainValidationError } from '../../../shared/utilities/index.js';
