@@ -1,1 +1,1 @@
-export { ErrorSchema } from '../../../shared/adapters/http/error-schema.js';
+export { ErrorSchema } from '../../../shared/api/error-schema.js';

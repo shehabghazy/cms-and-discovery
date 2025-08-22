@@ -1,4 +1,4 @@
-import { DomainBase } from '../../shared/abstractions/domain-base';
+import { DomainBase } from '../../shared/domain/domain-base';
 import { Program } from './program.js';
 import { Episode } from './episode.js';
 import { 

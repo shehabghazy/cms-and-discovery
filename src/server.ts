@@ -2,7 +2,7 @@ import Fastify from 'fastify';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { Type, Static } from '@sinclair/typebox';
 
-import { registerErrorHandler } from './shared/adapters/http/error-handler.js';
+import { registerErrorHandler } from './shared/api/error-handler.js';
 import { registerProgramRoutes } from './cms/api/create-program-route.js';
 import { InMemoryProgramRepository } from './cms/infrastructure/index.js';
 

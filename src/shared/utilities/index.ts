@@ -1,2 +1,2 @@
 export * from './validation.js';
-export * from '../exceptions/domain-errors.js';
+export * from '../domain/domain-errors.js';

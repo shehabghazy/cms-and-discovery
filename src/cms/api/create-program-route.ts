@@ -7,7 +7,7 @@ import {
   ConflictError 
 } from '../application/index.js';
 import { type ProgramRepository } from '../domain/index.js';
-import { ErrorSchema } from '../../shared/adapters/http/error-schema.js';
+import { ErrorSchema } from '../../shared/api/error-schema.js';
 
 export function registerProgramRoutes(app: FastifyInstance, dependencies: {
   programRepository: ProgramRepository;

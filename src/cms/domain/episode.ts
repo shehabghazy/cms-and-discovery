@@ -1,4 +1,4 @@
-import { DomainBase } from '../../shared/abstractions/domain-base.js';
+import { DomainBase } from '../../shared/domain/domain-base.js';
 import { Language } from './enums/index.js';
 import { 
   type EpisodeMetadata,

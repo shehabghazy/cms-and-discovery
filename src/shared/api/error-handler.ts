@@ -1,7 +1,7 @@
 // adapters/http/error-handler.ts
 import type { FastifyInstance } from 'fastify';
-import { DomainValidationError } from '../../index.js';
-import { ConflictError, NotFoundError } from '../../../cms/application/index.js';
+import { DomainValidationError } from '../index.js';
+import { ConflictError, NotFoundError } from '../../cms/application/index.js';
 
 export function registerErrorHandler(app: FastifyInstance) {
   app.setErrorHandler((err: any, req, reply) => {
