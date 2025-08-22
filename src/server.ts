@@ -1,9 +1,12 @@
 import Fastify from 'fastify';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { Type, Static } from '@sinclair/typebox';
+import swagger from '@fastify/swagger';
+import swaggerUi from '@fastify/swagger-ui';
+import cors from '@fastify/cors';
 
 import { registerErrorHandler } from './shared/api/error-handler.js';
-import { registerCreateProgramRoute } from './cms/api/create-program-route.js';
+import { registerProgramRoutes } from './cms/api/index.js';
 import { InMemoryProgramRepository } from './cms/infrastructure/index.js';
 
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
@@ -14,6 +17,40 @@ const app = Fastify({ logger: true }).withTypeProvider<TypeBoxTypeProvider>();
 // --- Global error handler (must be registered early)
 registerErrorHandler(app);
 
+// --- CORS support for Swagger UI
+await app.register(cors, {
+  origin: true, // Allow all origins for development
+  credentials: true
+});
+
+// --- Swagger documentation
+await app.register(swagger, {
+  swagger: {
+    info: {
+      title: 'Thmanyah CMS API',
+      description: 'Content Management System API for Programs and Episodes',
+      version: '1.0.0'
+    },
+    host: `localhost:${PORT}`,
+    schemes: ['http'],
+    consumes: ['application/json'],
+    produces: ['application/json'],
+    tags: [
+      { name: 'General', description: 'General API endpoints' },
+      { name: 'Programs', description: 'Program management endpoints' }
+    ]
+  }
+});
+
+await app.register(swaggerUi, {
+  routePrefix: '/docs',
+  uiConfig: {
+    docExpansion: 'full',
+    deepLinking: false
+  },
+  staticCSP: true
+});
+
 // --- Welcome route (TypeBox schema)
 const WelcomeSchema = Type.Object({
   message: Type.String(),
@@ -23,7 +60,12 @@ const WelcomeSchema = Type.Object({
 type WelcomeResponse = Static<typeof WelcomeSchema>;
 
 app.get('/', {
-  schema: { response: { 200: WelcomeSchema } },
+  schema: { 
+    tags: ['General'],
+    summary: 'API Welcome',
+    description: 'Returns welcome message with API information',
+    response: { 200: WelcomeSchema } 
+  },
 }, async (): Promise<WelcomeResponse> => ({
   message: 'Welcome to Thmanyah API!',
   timestamp: new Date().toISOString(),
@@ -34,7 +76,7 @@ app.get('/', {
 const programRepository = new InMemoryProgramRepository();
 
 // --- Feature routes
-await registerCreateProgramRoute(app, { programRepository });
+await registerProgramRoutes(app, { programRepository });
 
 // --- Graceful shutdown
 process.on('SIGINT', async () => {
