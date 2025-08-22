@@ -9,6 +9,7 @@ import {
   type EpisodeUpdateInput
 } from './models/index.js';
 import { ProgramType, ProgramStatus, Language } from './enums/index.js';
+import { ProgramRepository } from './ports/index.js';
 
 export {
   // Base classes
@@ -28,5 +29,8 @@ export {
   // Enums
   ProgramType,
   ProgramStatus,
-  Language
+  Language,
+  
+  // Ports (Interfaces)
+  type ProgramRepository
 };

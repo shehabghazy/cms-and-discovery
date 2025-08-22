@@ -17,6 +17,7 @@
   "dependencies": {
     "@fastify/swagger": "^9.5.1",
     "@fastify/swagger-ui": "^5.2.3",
+    "@sinclair/typebox": "^0.34.40",
     "fastify": "^5.5.0"
   },
   "devDependencies": {
