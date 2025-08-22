@@ -5,7 +5,7 @@ import { Program, ProgramType, ProgramStatus, type ProgramRepository } from '../
 import { toProgramDto } from '../mappers/program.mapper.js';
 
 export type CreateProgramInput = { programData: ProgramCreateDto };
-export type CreateProgramOutput = { program: ProgramDto };
+export type CreateProgramOutput = { programData: ProgramDto };
 
 export class CreateProgramUseCase extends CommandUseCase<CreateProgramInput, CreateProgramOutput> {
   constructor(private repo: ProgramRepository) {
@@ -25,6 +25,6 @@ export class CreateProgramUseCase extends CommandUseCase<CreateProgramInput, Cre
     // Save the program using the repository
     await this.repo.save(program);
     
-    return { program: toProgramDto(program) };
+    return { programData: toProgramDto(program) };
   }
 }

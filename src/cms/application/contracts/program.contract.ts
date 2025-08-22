@@ -19,7 +19,7 @@ export const ProgramStatus = Type.Union([
 export const ProgramCreateDto = Type.Object({
   title: Type.String({ minLength: 1, maxLength: 120 }),
   type: ProgramType,
-  slug: Type.RegExp(/^[a-z0-9-]+$/),
+  slug: Type.String({ pattern: '^[a-z0-9-]+$' }),
   status: Type.Optional(ProgramStatus),
 }, { additionalProperties: false });
 
