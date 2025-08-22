@@ -1,6 +1,6 @@
-import { DomainBase } from '../../shared/abstractions/DomainBase';
-import { Program } from './Program.js';
-import { Episode } from './Episode.js';
+import { DomainBase } from '../../shared/abstractions/domain-base';
+import { Program } from './program.js';
+import { Episode } from './episode.js';
 import { 
   type ProgramCreateInput, 
   type ProgramUpdateInput, 

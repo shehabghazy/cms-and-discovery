@@ -3,12 +3,12 @@ export {
   type ProgramUpdateInput,
   validateProgramCreate,
   validateProgramUpdate
-} from './Program.js';
+} from './program-dto.js';
 export { 
   type EpisodeMetadata, 
   type EpisodeCreateInput,
   type EpisodeUpdateInput,
   validateEpisodeCreate,
   validateEpisodeUpdate
-} from './Episode.js';
+} from './episode-dto.js';
 export { DomainValidationError } from '../../../shared/utilities/index.js';

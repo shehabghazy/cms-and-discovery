@@ -11,12 +11,14 @@ export type ProgramCreateInput = {
   updated_at?: Date | null;
 };
 
+
 export type ProgramUpdateInput = {
   title?: string;
   type?: ProgramType;
   slug?: string;
   status?: ProgramStatus;
 };
+
 
 export function validateProgramCreate(raw: ProgramCreateInput) {
   const issues: Array<{ field: string; message: string }> = [];
@@ -53,6 +55,7 @@ export function validateProgramCreate(raw: ProgramCreateInput) {
     updated_at: raw.updated_at,
   } as const;
 }
+
 
 export function validateProgramUpdate(raw: ProgramUpdateInput) {
   const issues: Array<{ field: string; message: string }> = [];

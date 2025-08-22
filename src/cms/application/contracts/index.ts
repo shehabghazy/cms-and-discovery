@@ -1,1 +1,1 @@
-export * from './program.contract.js';
+export * from './create-program-contract.js';

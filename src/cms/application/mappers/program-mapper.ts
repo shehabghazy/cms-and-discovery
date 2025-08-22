@@ -1,6 +1,6 @@
 // application/mappers/program.mapper.ts
-import { Program } from '../../domain/Program.js';
-import type { ProgramDto } from '../contracts/program.contract.js';
+import { Program } from '../../domain/program.js';
+import type { ProgramDto } from '../contracts/create-program-contract.js';
 
 export const toProgramDto = (p: Program): ProgramDto => ({
   id: p.id,

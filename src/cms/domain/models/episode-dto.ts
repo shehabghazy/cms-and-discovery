@@ -1,20 +1,11 @@
 import { Language } from '../enums/index.js';
 import { isUuid, isNonEmpty, isDuration, asUrlOrNull, isEnumValue, DomainValidationError } from '../../../shared/utilities/index.js';
 
+
 export interface EpisodeMetadata {
   [key: string]: any;
 }
 
-const cleanMetadata = (m?: EpisodeMetadata): EpisodeMetadata => {
-  const src = (m && typeof m === 'object') ? m : {};
-  const next: Record<string, unknown> = Object.create(null);
-  for (const [k, v] of Object.entries(src)) {
-    if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
-    if (v === undefined) continue;
-    next[k] = v;
-  }
-  return next;
-};
 
 export type EpisodeCreateInput = {
   id: string;
@@ -28,6 +19,7 @@ export type EpisodeCreateInput = {
   published_at?: Date | null;
 };
 
+
 export type EpisodeUpdateInput = {
   title?: string;
   description?: string;
@@ -36,6 +28,19 @@ export type EpisodeUpdateInput = {
   source_url?: string | null;
   metadata?: EpisodeMetadata;
 };
+
+
+const cleanMetadata = (m?: EpisodeMetadata): EpisodeMetadata => {
+  const src = (m && typeof m === 'object') ? m : {};
+  const next: Record<string, unknown> = Object.create(null);
+  for (const [k, v] of Object.entries(src)) {
+    if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
+    if (v === undefined) continue;
+    next[k] = v;
+  }
+  return next;
+};
+
 
 export function validateEpisodeCreate(raw: EpisodeCreateInput) {
   const issues: Array<{ field: string; message: string }> = [];
@@ -82,6 +87,7 @@ export function validateEpisodeCreate(raw: EpisodeCreateInput) {
     metadata: cleanMetadata(raw.metadata),
   } as const;
 }
+
 
 export function validateEpisodeUpdate(raw: EpisodeUpdateInput) {
   const issues: Array<{ field: string; message: string }> = [];

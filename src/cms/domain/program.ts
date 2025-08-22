@@ -1,4 +1,4 @@
-import { DomainBase } from '../../shared/abstractions/DomainBase';
+import { DomainBase } from '../../shared/abstractions/domain-base';
 import { ProgramType, ProgramStatus } from './enums/index.js';
 import { 
   validateProgramCreate,

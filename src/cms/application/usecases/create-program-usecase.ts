@@ -1,8 +1,8 @@
 // application/use-cases/create-program.ts (use cases depend on TYPES only)
 import { CommandUseCase } from '../../../shared/index.js';
-import type { ProgramDto, ProgramCreateDto } from '../contracts/program.contract.js';
+import type { ProgramDto, ProgramCreateDto } from '../contracts/create-program-contract.js';
 import { Program, ProgramType, ProgramStatus, type ProgramRepository } from '../../domain/index.js';
-import { toProgramDto } from '../mappers/program.mapper.js';
+import { toProgramDto } from '../mappers/program-mapper.js';
 
 export type CreateProgramInput = { programData: ProgramCreateDto };
 export type CreateProgramOutput = { programData: ProgramDto };

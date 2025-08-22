@@ -1,2 +1,2 @@
-export { CommandUseCase } from './CommandUseCase.js';
-export { QueryUseCase } from './QueryUseCase.js';
+export { CommandUseCase } from './command-usecase.js';
+export { QueryUseCase } from './query-usecase.js';

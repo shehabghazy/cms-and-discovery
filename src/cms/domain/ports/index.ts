@@ -1,1 +1,1 @@
-export { ProgramRepository } from './ProgramRepository.js';
+export { ProgramRepository } from './program-repository.js';

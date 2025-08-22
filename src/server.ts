@@ -2,8 +2,8 @@ import Fastify from 'fastify';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { Type, Static } from '@sinclair/typebox';
 
-import { registerErrorHandler } from './shared/adapters/http/errorHandler.js';
-import { registerProgramRoutes } from './cms/api/program.routes.js';
+import { registerErrorHandler } from './shared/adapters/http/error-handler.js';
+import { registerProgramRoutes } from './cms/api/create-program-route.js';
 import { InMemoryProgramRepository } from './cms/infrastructure/index.js';
 
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
