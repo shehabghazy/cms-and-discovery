@@ -1,4 +1,3 @@
-// api/program.routes.ts
 import type { FastifyInstance } from 'fastify';
 import { 
   ProgramCreateDto, 
@@ -9,13 +8,12 @@ import {
 import { type ProgramRepository } from '../domain/index.js';
 import { ErrorSchema } from '../../shared/api/error-schema.js';
 
-export function registerProgramRoutes(app: FastifyInstance, dependencies: {
+
+export function registerCreateProgramRoute(app: FastifyInstance, dependencies: {
   programRepository: ProgramRepository;
 }) {
-  // Create use case with injected repository
   const createProgramUseCase = new CreateProgramUseCase(dependencies.programRepository);
 
-  // POST /programs - Create a new program
   app.post('/programs', {
     schema: {
       body: ProgramCreateDto,
@@ -27,7 +25,7 @@ export function registerProgramRoutes(app: FastifyInstance, dependencies: {
     },
   }, async (req, reply) => {
     const result = await createProgramUseCase.execute({ 
-      programData: req.body as any // TypeBox validates this at runtime
+      programData: req.body as any
     });
     return reply.code(201).send(result.programData);
   });

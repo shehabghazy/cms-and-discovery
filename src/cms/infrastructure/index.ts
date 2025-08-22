@@ -1,1 +1,1 @@
-export { InMemoryProgramRepository, MockProgramRepository } from './repositories/index.js';
+export { InMemoryProgramRepository } from './repositories/index.js';

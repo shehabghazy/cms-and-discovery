@@ -3,7 +3,7 @@ import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { Type, Static } from '@sinclair/typebox';
 
 import { registerErrorHandler } from './shared/api/error-handler.js';
-import { registerProgramRoutes } from './cms/api/create-program-route.js';
+import { registerCreateProgramRoute } from './cms/api/create-program-route.js';
 import { InMemoryProgramRepository } from './cms/infrastructure/index.js';
 
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
@@ -30,13 +30,11 @@ app.get('/', {
   version: '1.0.0',
 }));
 
-// --- Create dependencies (repositories)
-// TODO: Replace with database repository implementation (PostgreSQL, MongoDB, etc.)
-// For now using in-memory repository for development
+
 const programRepository = new InMemoryProgramRepository();
 
 // --- Feature routes
-await registerProgramRoutes(app, { programRepository });
+await registerCreateProgramRoute(app, { programRepository });
 
 // --- Graceful shutdown
 process.on('SIGINT', async () => {
