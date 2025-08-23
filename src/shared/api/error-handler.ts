@@ -1,7 +1,7 @@
 // adapters/http/error-handler.ts
 import type { FastifyInstance } from 'fastify';
 import { DomainValidationError } from '../index.js';
-import { ConflictError, NotFoundError } from '../../cms/application/index.js';
+import { ConflictError, NotFoundError, ValidationError } from '../application/usecase-errors.js';
 
 export function registerErrorHandler(app: FastifyInstance) {
   app.setErrorHandler((err: any, req, reply) => {
@@ -23,6 +23,14 @@ export function registerErrorHandler(app: FastifyInstance) {
     }
     if (err instanceof NotFoundError) {
       return reply.code(404).send({ error: err.message });
+    }
+    if (err instanceof ValidationError) {
+      // For asset availability errors, return 410 Gone
+      if (err.message.includes('not available')) {
+        return reply.code(410).send({ error: err.message });
+      }
+      // For other validation errors, return 400
+      return reply.code(400).send({ error: err.message });
     }
 
     // 3) Fallback
