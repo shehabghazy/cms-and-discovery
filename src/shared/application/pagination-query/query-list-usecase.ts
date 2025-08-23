@@ -1,4 +1,4 @@
-import { QueryUseCase } from '../query-usecase.js';
+import { QueryUseCase } from '../usecases/query-usecase.js';
 import { 
   QueryListInput, 
   QueryListResult, 

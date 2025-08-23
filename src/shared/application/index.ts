@@ -1,5 +1,5 @@
-export { CommandUseCase } from './command-usecase.js';
-export { QueryUseCase } from './query-usecase.js';
+export { CommandUseCase } from './usecases/command-usecase.js';
+export { QueryUseCase } from './usecases/query-usecase.js';
 export { QueryListUseCase } from './pagination-query/query-list-usecase.js';
 
 export { 
@@ -17,6 +17,12 @@ export {
   createPaginationMeta,
   validatePaginationOptions
 } from './pagination-query/query-list.js';
+
+export {
+  type EventBus,
+  type IEventHandler,
+  EventHandlerError
+} from './events/index.js';
 
 export { 
   PaginationMetaSchema , 

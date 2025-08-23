@@ -1,3 +1,4 @@
- export { 
-    DomainValidationError 
-} from './domain-errors.js';
+
+export {
+    DomainEvent,
+} from './events/index.js';
