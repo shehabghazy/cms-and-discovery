@@ -36,15 +36,23 @@ export class ChangeProgramStatusUseCase extends CommandUseCase<ChangeProgramStat
     
     // Save the program first
     await this.repo.save(program);
+    console.log(`💾 Program ${program.id} saved with new status: ${input.statusData.status}`);
     
     // Publish only ProgramPublishedEvent events
     const domainEvents = program.getDomainEvents();
+    console.log(`🔍 Found ${domainEvents.length} domain events on program ${program.id}`);
+    
     const programPublishedEvents = domainEvents.filter(event => event instanceof ProgramPublishedEvent);
+    console.log(`📋 Filtered to ${programPublishedEvents.length} ProgramPublishedEvent(s)`);
     
     if (programPublishedEvents.length > 0) {
+      console.log(`🚀 Publishing ${programPublishedEvents.length} ProgramPublishedEvent(s) for program ${program.id}`);
       await this.eventBus.publishAll(programPublishedEvents);
       // Remove only the published events from the program
       program.removeEvents(programPublishedEvents);
+      console.log(`🧹 Removed published events from program ${program.id}`);
+    } else {
+      console.log(`ℹ️  No ProgramPublishedEvent to publish for program ${program.id}`);
     }
     
     return { program: toProgramDto(program) };

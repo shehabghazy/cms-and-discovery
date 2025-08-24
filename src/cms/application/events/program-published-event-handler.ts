@@ -10,9 +10,12 @@ export class ProgramPublishedEventHandler implements IEventHandler<ProgramPublis
   ) {
     // Subscribe to the event bus when the handler is created
     this.eventBus.subscribe('ProgramPublished', this);
+    console.log('🔔 ProgramPublishedEventHandler subscribed to ProgramPublished events');
   }
 
   async handle(event: ProgramPublishedEvent): Promise<void> {
+    console.log(`🎯 ProgramPublishedEventHandler handling event for program: ${event.programId} (${event.title})`);
+    
     // No type checking needed - TypeScript guarantees the correct type!
     const programData = {
       id: event.programId,
@@ -24,6 +27,8 @@ export class ProgramPublishedEventHandler implements IEventHandler<ProgramPublis
       published_at: event.publishedAt,
     };
 
+    console.log(`📊 Indexing program data:`, programData);
     await this.programIndexer.index(programData);
+    console.log(`✅ Program ${event.programId} successfully indexed in search engine`);
   }
 }
