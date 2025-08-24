@@ -1,10 +1,10 @@
-import { isUuid, DomainValidationError } from "../../../shared/utilities/index.js";
+import { isUuid, DomainValidationError } from "../../../../shared/utilities/index.js";
 
-export interface AssetGetDetailsInput {
+export interface AssetDownloadInput {
   id: string;
 }
 
-export function validateAssetGetDetails(input: AssetGetDetailsInput) {
+export function validateAssetDownload(input: AssetDownloadInput) {
   const issues: Array<{ field: string; message: string }> = [];
 
   if (!isUuid(input.id)) {

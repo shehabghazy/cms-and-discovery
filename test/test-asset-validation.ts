@@ -3,7 +3,7 @@ import {
   validateAssetGetDetails,
   validateAssetUpdateAvailability,
   validateAssetDownload
-} from '../src/assets/domain/index.js';
+} from '../src/assets/internal/domain/index.js';
 import { DomainValidationError } from '../src/shared/utilities/index.js';
 
 function testAssetValidation(): void {

@@ -2,7 +2,7 @@ import {
   registerAssetRoutes,
   InMemoryAssetRepository,
   LocalFileStorageProvider
-} from '../src/assets/index.js';
+} from '../src/assets/internal/index.js';
 import Fastify from 'fastify';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import multipart from '@fastify/multipart';

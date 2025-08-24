@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { Type } from '@sinclair/typebox';
 import { DownloadAssetUseCase } from '../application/index.js';
 import { type AssetRepository, type StorageProvider } from '../domain/index.js';
-import { ErrorSchema } from '../../shared/api/error-schema.js';
+import { ErrorSchema } from '../../../shared/api/error-schema.js';
 
 const DownloadAssetParamsDto = Type.Object({
   id: Type.String({ format: 'uuid' }),

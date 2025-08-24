@@ -1,4 +1,4 @@
-import { Asset } from '../src/assets/domain/index.js';
+import { Asset } from '../src/assets/internal/domain/index.js';
 import { DomainValidationError } from '../src/shared/utilities/index.js';
 
 function testAssetDomain(): void {

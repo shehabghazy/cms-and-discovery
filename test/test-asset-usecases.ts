@@ -3,9 +3,9 @@ import {
   GetAssetDetailsUseCase,
   UpdateAssetAvailabilityUseCase,
   DownloadAssetUseCase
-} from '../src/assets/application/index.js';
-import { InMemoryAssetRepository, LocalFileStorageProvider } from '../src/assets/infrastructure/index.js';
-import type { FileInfo } from '../src/assets/domain/index.js';
+} from '../src/assets/internal/application/index.js';
+import { InMemoryAssetRepository, LocalFileStorageProvider } from '../src/assets/internal/infrastructure/index.js';
+import type { FileInfo } from '../src/assets/internal/domain/index.js';
 import { NotFoundError, ValidationError } from '../src/shared/application/usecase-errors.js';
 
 async function testAssetUseCases(): Promise<void> {

@@ -1,4 +1,4 @@
-import { isUuid, isNonEmpty, DomainValidationError } from "../../../shared/utilities/index.js";
+import { isUuid, isNonEmpty, DomainValidationError } from "../../../../shared/utilities/index.js";
 
 export interface AssetCreateInput {
   id?: string;

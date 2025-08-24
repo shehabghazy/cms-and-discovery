@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 import { AssetDto } from '../application/index.js';
 import { UploadAssetUseCase } from '../application/index.js';
 import { type AssetRepository, type StorageProvider, type FileInfo } from '../domain/index.js';
-import { ErrorSchema } from '../../shared/api/error-schema.js';
+import { ErrorSchema } from '../../../shared/api/error-schema.js';
 import * as path from 'path';
 
 export function registerUploadAssetRoute(app: FastifyInstance, dependencies: {

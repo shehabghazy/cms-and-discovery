@@ -1,4 +1,4 @@
-import { DomainBase } from "../../shared/domain/domain-base.js";
+import { DomainBase } from "../../../shared/domain/domain-base.js";
 import {
   validateAssetCreate,
   validateAssetUpdateAvailability,

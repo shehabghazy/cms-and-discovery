@@ -1,5 +1,5 @@
-import { LocalFileStorageProvider } from '../src/assets/infrastructure/index.js';
-import type { FileInfo } from '../src/assets/domain/index.js';
+import { LocalFileStorageProvider } from '../src/assets/internal/infrastructure/index.js';
+import type { FileInfo } from '../src/assets/internal/domain/index.js';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 

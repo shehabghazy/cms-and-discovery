@@ -1,4 +1,4 @@
-import { CommandUseCase } from '../../../shared/index.js';
+import { CommandUseCase } from '../../../../shared/index.js';
 import type { AssetDto } from '../contracts/upload-asset-contract.js';
 import { Asset, type AssetRepository, type StorageProvider, type FileInfo } from '../../domain/index.js';
 import { toAssetDto } from '../mappers/asset-mapper.js';

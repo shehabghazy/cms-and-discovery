@@ -9,10 +9,10 @@ import multipart from '@fastify/multipart';
 
 import { registerErrorHandler } from './shared/api/error-handler.js';
 import { registerCMSRoutes, registerCMSEventHandlers } from './cms/internal/controller/index.js';
-import { registerAssetRoutes } from './assets/api/asset-routes.js';
+import { registerAssetRoutes } from './assets/internal/api/asset-routes.js';
 import { registerDiscoveryRoutes } from './discovery/index.js';
 import { InMemoryProgramRepository, InMemoryEpisodeRepository } from './cms/internal/infrastructure/index.js';
-import { InMemoryAssetRepository, LocalFileStorageProvider } from './assets/infrastructure/index.js';
+import { InMemoryAssetRepository, LocalFileStorageProvider } from './assets/internal/infrastructure/index.js';
 import { InMemoryEventBus } from './shared/infrastructure/events/in-memory-event-bus.js';
 import { SearchEngineFactory, type SearchEngineType } from './shared/application/index.js';
 

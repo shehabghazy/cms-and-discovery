@@ -1,5 +1,5 @@
-import { Asset } from '../src/assets/domain/index.js';
-import { InMemoryAssetRepository } from '../src/assets/infrastructure/index.js';
+import { Asset } from '../src/assets/internal/domain/index.js';
+import { InMemoryAssetRepository } from '../src/assets/internal/infrastructure/index.js';
 
 async function testAssetRepository(): Promise<void> {
   console.log('🚀 Testing Asset Repository\n');

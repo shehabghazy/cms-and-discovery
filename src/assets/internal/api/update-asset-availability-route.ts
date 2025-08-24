@@ -3,7 +3,7 @@ import { Type } from '@sinclair/typebox';
 import { AssetDto } from '../application/index.js';
 import { UpdateAssetAvailabilityUseCase } from '../application/index.js';
 import { type AssetRepository } from '../domain/index.js';
-import { ErrorSchema } from '../../shared/api/error-schema.js';
+import { ErrorSchema } from '../../../shared/api/error-schema.js';
 
 const UpdateAvailabilityParamsDto = Type.Object({
   id: Type.String({ format: 'uuid' }),

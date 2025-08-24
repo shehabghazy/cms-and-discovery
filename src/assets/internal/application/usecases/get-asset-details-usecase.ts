@@ -1,8 +1,8 @@
-import { QueryUseCase } from '../../../shared/index.js';
+import { QueryUseCase } from '../../../../shared/index.js';
 import type { AssetDto } from '../contracts/get-asset-details-contract.js';
 import { type AssetRepository } from '../../domain/index.js';
 import { toAssetDto } from '../mappers/asset-mapper.js';
-import { NotFoundError } from '../../../shared/application/usecase-errors.js';
+import { NotFoundError } from '../../../../shared/application/usecase-errors.js';
 
 export type GetAssetDetailsInput = { 
   assetId: string;

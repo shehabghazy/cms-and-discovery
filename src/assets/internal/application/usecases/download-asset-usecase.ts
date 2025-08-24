@@ -1,6 +1,6 @@
-import { QueryUseCase } from '../../../shared/index.js';
+import { QueryUseCase } from '../../../../shared/index.js';
 import { type AssetRepository, type StorageProvider } from '../../domain/index.js';
-import { NotFoundError, ValidationError } from '../../../shared/application/usecase-errors.js';
+import { NotFoundError, ValidationError } from '../../../../shared/application/usecase-errors.js';
 
 export type DownloadAssetInput = { 
   assetId: string;

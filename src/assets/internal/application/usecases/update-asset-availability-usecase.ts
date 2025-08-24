@@ -1,8 +1,8 @@
-import { CommandUseCase } from '../../../shared/index.js';
+import { CommandUseCase } from '../../../../shared/index.js';
 import type { AssetDto } from '../contracts/update-asset-availability-contract.js';
 import { type AssetRepository } from '../../domain/index.js';
 import { toAssetDto } from '../mappers/asset-mapper.js';
-import { NotFoundError } from '../../../shared/application/usecase-errors.js';
+import { NotFoundError } from '../../../../shared/application/usecase-errors.js';
 
 export type UpdateAssetAvailabilityInput = { 
   assetId: string;

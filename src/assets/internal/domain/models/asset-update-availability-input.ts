@@ -1,4 +1,4 @@
-import { isUuid, DomainValidationError } from "../../../shared/utilities/index.js";
+import { isUuid, DomainValidationError } from "../../../../shared/utilities/index.js";
 
 export interface AssetUpdateAvailabilityInput {
   id: string;
