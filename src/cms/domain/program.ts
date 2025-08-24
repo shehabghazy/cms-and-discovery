@@ -9,6 +9,7 @@ import {
   type ProgramChangeStatusInput
 } from './models/index.js';
 import { ProgramPublishedEvent, ProgramArchivedEvent, ProgramStatusChangedEvent } from './events/index.js';
+import { ProgramStatusChangeStrategyRegistry } from './strategies/index.js';
 
 export class Program extends DomainBase {
   public title: string;
@@ -56,48 +57,30 @@ export class Program extends DomainBase {
     const previousStatus = this.status;
     const statusChange = validateProgramChangeStatus(input, this.status); // throws DomainValidationError if invalid
 
-    this.status = statusChange.status;
-    
-    // Handle published_at logic
-    if (statusChange.status === ProgramStatus.PUBLISHED && this.published_at === null) {
-      this.published_at = statusChange.published_at || new Date();
+    // Early return if status is the same - no need to enter strategies
+    if (statusChange.status === previousStatus) {
+      return;
     }
-    // Note: published_at is kept when archiving (as history)
-    // Note: once published, status cannot go back to draft
+
+    this.status = statusChange.status;
 
     this.touch();
 
-    // Emit domain event for any status change
-    this.addDomainEvent(new ProgramStatusChangedEvent({
-      programId: this.id,
-      slug: this.slug,
-      title: this.title,
-      description: this.description,
-      programType: this.type,
-      language: this.language,
-      previousStatus: previousStatus,
-      newStatus: this.status,
-      publishedAt: this.published_at,
-    }));
-
-    // Emit legacy ProgramPublishedEvent for backward compatibility when program is published
-    if (previousStatus !== ProgramStatus.PUBLISHED && this.status === ProgramStatus.PUBLISHED) {
-      this.addDomainEvent(new ProgramPublishedEvent({
-        programId: this.id,
+    // Use strategy pattern to handle status-specific logic (only for statuses that have strategies)
+    const strategy = ProgramStatusChangeStrategyRegistry.getStrategy(this.status);
+    strategy.handleStatusChange(
+      {
+        id: this.id,
         slug: this.slug,
         title: this.title,
         description: this.description,
-        programType: this.type,
+        type: this.type,
         language: this.language,
-        publishedAt: this.published_at!, // We know it's not null since we just set it above
-      }));
-    }
+        published_at: this.published_at,
+      },
+      (event) => this.addDomainEvent(event),
+      (date) => { this.published_at = date; }
+    );
 
-    // Emit ProgramArchivedEvent when program is archived
-    if (this.status === ProgramStatus.ARCHIVED) {
-      this.addDomainEvent(new ProgramArchivedEvent({
-        programId: this.id,
-      }));
-    }
   }
 }

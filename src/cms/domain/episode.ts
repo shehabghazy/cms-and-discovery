@@ -11,6 +11,7 @@ import {
   type EpisodeMoveToProgram
 } from './models/index.js';
 import { EpisodePublishedEvent, EpisodeHiddenEvent } from './events/index.js';
+import { EpisodeStatusStrategyFactory } from './strategies/index.js';
 
 export class Episode extends DomainBase {
   public program_id: string;
@@ -61,36 +62,30 @@ export class Episode extends DomainBase {
     const previousStatus = this.status;
     const statusChange = validateEpisodeChangeStatus(input, this.status); // throws DomainValidationError if invalid
 
-    this.status = statusChange.status;
-    
-    // Handle published_at logic
-    if (statusChange.status === EpisodeStatus.PUBLISHED && this.published_at === null) {
-      this.published_at = statusChange.published_at || new Date();
+    // Early return if status is the same - no need to enter strategies
+    if (statusChange.status === previousStatus) {
+      return;
     }
-    // Note: published_at is kept when hiding (as history)
-    // Note: once published, status cannot go back to draft
+
+    this.status = statusChange.status;
 
     this.touch();
 
-    // Emit EpisodePublishedEvent when episode is published
-    if (previousStatus !== EpisodeStatus.PUBLISHED && this.status === EpisodeStatus.PUBLISHED) {
-      this.addDomainEvent(new EpisodePublishedEvent({
-        episodeId: this.id,
-        programId: this.program_id,
+    // Use strategy pattern to handle status-specific logic
+    const strategy = EpisodeStatusStrategyFactory.getStrategy(this.status);
+    strategy.handleStatusChange(
+      {
+        id: this.id,
+        program_id: this.program_id,
         slug: this.slug,
         title: this.title,
         description: this.description,
         kind: this.kind,
-        publishedAt: this.published_at!, // We know it's not null since we just set it above
-      }));
-    }
-
-    // Emit EpisodeHiddenEvent when episode is hidden
-    if (this.status === EpisodeStatus.HIDDEN) {
-      this.addDomainEvent(new EpisodeHiddenEvent({
-        episodeId: this.id,
-      }));
-    }
+        published_at: this.published_at,
+      },
+      (event) => this.addDomainEvent(event),
+      (date) => { this.published_at = date; }
+    );
   }
 
   /** Move episode to another program with slug uniqueness validation */
