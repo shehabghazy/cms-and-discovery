@@ -5,11 +5,9 @@ export const SearchQueryParams = Type.Object({
   q: Type.Optional(Type.String({ 
     description: 'Search query text' 
   })),
-  type: Type.Union([
-    Type.Literal('program'),
-    Type.Literal('episode')
-  ], { 
-    description: 'Filter by content type to determine target index' 
+  type: Type.String({
+    enum: ['program', 'episode'],
+    description: 'Filter by content type to determine target index'
   }),
   page: Type.Optional(Type.Integer({ 
     minimum: 1, 

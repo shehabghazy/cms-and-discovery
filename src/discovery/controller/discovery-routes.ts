@@ -17,5 +17,5 @@ export function registerDiscoveryRoutes(
   app.register(async (discoveryApp) => {
     // Search endpoint only
     registerSearchRoute(discoveryApp, dependencies);
-  }, { prefix: '/discovery' });
+  }, { prefix: '/api/v1/discovery' });
 }
