@@ -9,10 +9,13 @@ export function registerAssetRoutes(app: FastifyInstance, dependencies: {
   assetRepository: AssetRepository;
   storageProvider: StorageProvider;
 }) {
-  registerUploadAssetRoute(app, dependencies);
-  registerGetAssetDetailsRoute(app, dependencies);
-  registerUpdateAssetAvailabilityRoute(app, dependencies);
-  registerDownloadAssetRoute(app, dependencies);
+  // Register routes with /api/v1 prefix
+  app.register(async function assetRoutesV1(app) {
+    registerUploadAssetRoute(app, dependencies);
+    registerGetAssetDetailsRoute(app, dependencies);
+    registerUpdateAssetAvailabilityRoute(app, dependencies);
+    registerDownloadAssetRoute(app, dependencies);
+  }, { prefix: '/api/v1' });
   
-  console.log('All asset routes registered');
+  console.log('All asset routes registered with /api/v1 prefix');
 }
