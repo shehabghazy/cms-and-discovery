@@ -2,9 +2,9 @@ import { Type, Static } from '@sinclair/typebox';
 
 // Query parameters schema for search
 export const SearchQueryParams = Type.Object({
-  q: Type.Optional(Type.String({ 
+  q: Type.String({ 
     description: 'Search query text' 
-  })),
+  }),
   type: Type.String({
     enum: ['program', 'episode'],
     description: 'Filter by content type to determine target index'
