@@ -11,27 +11,21 @@ export interface SearchEngine {
    */
   ensureIndex(name: IndexName, def?: IndexDefinition): Promise<void>;
 
-  /**
-   * Idempotent upsert of many documents.
-   * @param index - The index name
-   * @param docs - Array of documents to index
-   */
-  index(index: IndexName, docs: Doc[]): Promise<void>;
 
   /**
-   * Index a single document (convenience method).
+   * Idempotent upsert of one document.
    * @param index - The index name
-   * @param doc - The document to index
+   * @param docs - single document to index
    */
-  indexOne(index: IndexName, doc: Doc): Promise<void>;
+  index(index: IndexName, doc: Doc): Promise<void>;
 
 
   /**
-   * Delete by document ids.
+   * Delete by document id.
    * @param index - The index name
-   * @param ids - Array of document IDs to delete
+   * @param ids - single document id to delete
    */
-  delete(index: IndexName, ids: string[]): Promise<void>;
+  delete(index: IndexName, id: string[]): Promise<void>;
 
 
   /**
