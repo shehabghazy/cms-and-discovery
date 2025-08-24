@@ -1,1 +1,1 @@
-export { ProgramPublishedEventHandler } from './program-published-event-handler.js';
+export { ProgramStatusEventHandler } from './program-status-event-handler.js';

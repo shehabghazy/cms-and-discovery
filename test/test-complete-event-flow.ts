@@ -4,7 +4,6 @@ import { ChangeProgramStatusUseCase } from '../src/cms/application/index.js';
 import { InMemoryEventBus } from '../src/shared/infrastructure/events/in-memory-event-bus.js';
 import { InMemorySearchEngine } from '../src/shared/infrastructure/search-engine/in-memory-search-engine.js';
 import { ProgramIndexer } from '../src/cms/application/services/program-indexer.js';
-import { ProgramPublishedEventHandler } from '../src/cms/application/events/program-published-event-handler.js';
 
 async function testCompleteEventFlow() {
   console.log('🧪 Testing Complete Program Publishing Event Flow\n');
@@ -19,11 +18,7 @@ async function testCompleteEventFlow() {
     const programIndexer = new ProgramIndexer(searchEngine);
     
     // 3. Initialize and register event handler
-    const programPublishedHandler = new ProgramPublishedEventHandler(
-      programIndexer,
-      eventBus
-    );
-    
+
     // 4. Initialize use case with event bus
     const changeProgramStatusUseCase = new ChangeProgramStatusUseCase(
       programRepository,

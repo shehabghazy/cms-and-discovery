@@ -38,6 +38,8 @@ export class ProgramIndexer {
   }
 
   async remove(programId: string): Promise<void> {
+    console.log(`🗑️ ProgramIndexer removing program: ${programId} from search index`);
     await this.engine.delete('programs', [programId]);
+    console.log(`✅ Program ${programId} successfully removed from 'programs' index`);
   }
 }

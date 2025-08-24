@@ -8,7 +8,7 @@ import {
   type ProgramUpdateInput,
   type ProgramChangeStatusInput
 } from './models/index.js';
-import { ProgramPublishedEvent } from './events/index.js';
+import { ProgramPublishedEvent, ProgramArchivedEvent, ProgramStatusChangedEvent } from './events/index.js';
 
 export class Program extends DomainBase {
   public title: string;
@@ -67,7 +67,20 @@ export class Program extends DomainBase {
 
     this.touch();
 
-    // Emit domain event when program is published
+    // Emit domain event for any status change
+    this.addDomainEvent(new ProgramStatusChangedEvent({
+      programId: this.id,
+      slug: this.slug,
+      title: this.title,
+      description: this.description,
+      programType: this.type,
+      language: this.language,
+      previousStatus: previousStatus,
+      newStatus: this.status,
+      publishedAt: this.published_at,
+    }));
+
+    // Emit legacy ProgramPublishedEvent for backward compatibility when program is published
     if (previousStatus !== ProgramStatus.PUBLISHED && this.status === ProgramStatus.PUBLISHED) {
       this.addDomainEvent(new ProgramPublishedEvent({
         programId: this.id,
@@ -77,6 +90,13 @@ export class Program extends DomainBase {
         programType: this.type,
         language: this.language,
         publishedAt: this.published_at!, // We know it's not null since we just set it above
+      }));
+    }
+
+    // Emit ProgramArchivedEvent when program is archived
+    if (this.status === ProgramStatus.ARCHIVED) {
+      this.addDomainEvent(new ProgramArchivedEvent({
+        programId: this.id,
       }));
     }
   }
