@@ -49,3 +49,6 @@ export {
   type ProgramRepository,
   type EpisodeRepository
 };
+
+// Export events
+export * from './events/index.js';

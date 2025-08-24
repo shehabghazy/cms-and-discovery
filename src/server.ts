@@ -7,10 +7,12 @@ import cors from '@fastify/cors';
 import multipart from '@fastify/multipart';
 
 import { registerErrorHandler } from './shared/api/error-handler.js';
-import { registerCMSRoutes } from './cms/api/index.js';
+import { registerCMSRoutes, registerCMSEventHandlers } from './cms/api/index.js';
 import { registerAssetRoutes } from './assets/api/asset-routes.js';
 import { InMemoryProgramRepository, InMemoryEpisodeRepository } from './cms/infrastructure/index.js';
 import { InMemoryAssetRepository, LocalFileStorageProvider } from './assets/infrastructure/index.js';
+import { InMemoryEventBus } from './shared/infrastructure/events/in-memory-event-bus.js';
+import { InMemorySearchEngine } from './shared/infrastructure/search-engine/in-memory-search-engine.js';
 
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
 const HOST: string = process.env.HOST || '0.0.0.0';
@@ -86,13 +88,23 @@ app.get('/', {
 }));
 
 
+// --- Infrastructure Setup ---
 const programRepository = new InMemoryProgramRepository();
 const episodeRepository = new InMemoryEpisodeRepository();
 const assetRepository = new InMemoryAssetRepository();
 const storageProvider = new LocalFileStorageProvider();
 
+// --- Event System Setup ---
+const eventBus = new InMemoryEventBus();
+const searchEngine = new InMemorySearchEngine();
+registerCMSEventHandlers(eventBus, searchEngine);
+
 // --- Feature routes
-await registerCMSRoutes(app, { programRepository, episodeRepository });
+await registerCMSRoutes(app, { 
+  programRepository, 
+  episodeRepository,
+  eventBus: eventBus
+});
 await registerAssetRoutes(app, { assetRepository, storageProvider });
 
 

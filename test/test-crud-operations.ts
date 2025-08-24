@@ -7,14 +7,16 @@ import {
   type ProgramChangeStatusDto
 } from '../src/cms/application/index.js';
 import { InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
+import { InMemoryEventBus } from '../src/shared/infrastructure/events/in-memory-event-bus.js';
 
 async function testProgramOperations(): Promise<void> {
   console.log('🚀 Testing Program CRUD Operations\n');
 
   const programRepository = new InMemoryProgramRepository();
+  const eventBus = new InMemoryEventBus(); // Add event bus
   const createUseCase = new CreateProgramUseCase(programRepository);
   const updateUseCase = new UpdateProgramUseCase(programRepository);
-  const changeStatusUseCase = new ChangeProgramStatusUseCase(programRepository);
+  const changeStatusUseCase = new ChangeProgramStatusUseCase(programRepository, eventBus); // Pass event bus
 
   // Create a program
   console.log('📋 Creating initial program...');

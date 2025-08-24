@@ -2,36 +2,37 @@ import { EventBus, IEventHandler, EventHandlerError } from '../../application/ev
 import { DomainEvent } from '../../domain/events/index.js';
 
 export class InMemoryEventBus implements EventBus {
-  private subscribers: Map<string, IEventHandler[]> = new Map();
+  private subscribers: Map<string, IEventHandler<DomainEvent>[]> = new Map();
 
   /**
    * Subscribes a handler to a specific event type
    * @param eventType The type of event to listen for
    * @param handler The handler instance to handle the event
    */
-  subscribe(eventType: string, handler: IEventHandler): void {
+  subscribe<T extends DomainEvent>(eventType: string, handler: IEventHandler<T>): void {
     if (!this.subscribers.has(eventType)) {
       this.subscribers.set(eventType, []);
     }
     
     const eventHandlers = this.subscribers.get(eventType)!;
-    if (!eventHandlers.includes(handler)) {
-      eventHandlers.push(handler);
+    // Type assertion is safe here because all DomainEvent handlers can handle DomainEvent
+    if (!eventHandlers.includes(handler as IEventHandler<DomainEvent>)) {
+      eventHandlers.push(handler as IEventHandler<DomainEvent>);
     }
   }
 
   /**
    * Unsubscribes a handler from a specific event type
    * @param eventType The type of event to stop listening for
-   * @param handlerThe handler instance to unsubscribe
+   * @param handler The handler instance to unsubscribe
    */
-  unsubscribe(eventType: string, handler: IEventHandler): void {
+  unsubscribe<T extends DomainEvent>(eventType: string, handler: IEventHandler<T>): void {
     const eventHandlers = this.subscribers.get(eventType);
     if (!eventHandlers) {
       return;
     }
     
-    const index = eventHandlers.indexOf(handler);
+    const index = eventHandlers.indexOf(handler as IEventHandler<DomainEvent>);
     if (index > -1) {
       eventHandlers.splice(index, 1);
     }
@@ -70,7 +71,7 @@ export class InMemoryEventBus implements EventBus {
    * @param handler The handler to execute
    * @param event The event to pass to the handler
    */
-  private async executeHandler(handler: IEventHandler, event: DomainEvent): Promise<void> {
+  private async executeHandler(handler: IEventHandler<DomainEvent>, event: DomainEvent): Promise<void> {
     try {
       await handler.handle(event);
     } catch (error) {

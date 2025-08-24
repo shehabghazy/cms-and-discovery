@@ -5,11 +5,13 @@ import {
 } from '../src/cms/application/index.js';
 import { ProgramType, ProgramStatus } from '../src/cms/domain/index.js';
 import { InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
+import { InMemoryEventBus } from '../src/shared/infrastructure/events/in-memory-event-bus.js';
 
 async function testProgramUseCases(): Promise<void> {
   console.log('🚀 Testing Program Use Cases\n');
 
   const programRepository = new InMemoryProgramRepository();
+  const eventBus = new InMemoryEventBus(); // Add event bus
 
   // Test CreateProgramUseCase
   console.log('📝 Testing CreateProgramUseCase...');
@@ -36,7 +38,7 @@ async function testProgramUseCases(): Promise<void> {
   
   // Test ChangeProgramStatusUseCase
   console.log('\n� Testing ChangeProgramStatusUseCase...');
-  const changeStatusUseCase = new ChangeProgramStatusUseCase(programRepository);
+  const changeStatusUseCase = new ChangeProgramStatusUseCase(programRepository, eventBus); // Pass event bus
   const statusResult = await changeStatusUseCase.execute({
     programId: createResult.program.id,
     statusData: {

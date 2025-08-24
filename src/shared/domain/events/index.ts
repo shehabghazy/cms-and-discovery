@@ -1,1 +1,1 @@
-export { DomainEvent } from './domain-event';
+export { DomainEvent } from './domain-event.js';
