@@ -97,6 +97,7 @@ const storageProvider = new LocalFileStorageProvider();
 // --- Event System Setup ---
 const eventBus = new InMemoryEventBus();
 const searchEngine = new InMemorySearchEngine();
+await searchEngine.initialize(); // Bootstrap indexes
 registerCMSEventHandlers(eventBus, searchEngine);
 
 // --- Feature routes

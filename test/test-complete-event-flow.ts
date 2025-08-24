@@ -12,6 +12,7 @@ async function testCompleteEventFlow() {
     // 1. Initialize infrastructure (same as server)
     const eventBus = new InMemoryEventBus();
     const searchEngine = new InMemorySearchEngine();
+    await searchEngine.initialize(); // Initialize the search engine
     const programRepository = new InMemoryProgramRepository();
     
     // 2. Initialize services

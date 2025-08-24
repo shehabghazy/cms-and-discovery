@@ -7,24 +7,22 @@ import { InMemorySearchEngine } from '../src/shared/infrastructure/search-engine
  */
 export async function testInMemorySearchEngine(): Promise<void> {
   const engine = new InMemorySearchEngine();
+  await engine.initialize(); // Initialize the search engine
   
   console.log('🧪 Testing InMemorySearchEngine...');
   
   try {
-    // Test index creation
-    await engine.ensureIndex('test-index');
-    console.log('✅ Index creation successful');
-    
-    // Test document indexing
+    // Test document indexing (indexes already bootstrapped)
     const testDoc1 = { id: '1', title: 'First Document', category: 'tech' };
     const testDoc2 = { id: '2', title: 'Second Document', category: 'science' };
     
-    await engine.index('test-index', testDoc1);
-    await engine.index('test-index', testDoc2);
+    // Use existing bootstrapped indexes
+    await engine.index('programs', testDoc1);
+    await engine.index('episodes', testDoc2);
     console.log('✅ Document indexing successful');
     
     // Test deletion
-    await engine.delete('test-index', ['1']);
+    await engine.delete('programs', ['1']);
     console.log('✅ Document deletion successful');
     
     // Test refresh (no-op)

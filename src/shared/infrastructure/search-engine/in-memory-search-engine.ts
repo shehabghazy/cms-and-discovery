@@ -18,13 +18,28 @@ interface IndexData {
  * In-memory implementation of SearchEngine for testing and development.
  * Provides basic indexing functionality without external dependencies.
  */
-export class InMemorySearchEngine implements SearchEngine {
+export class InMemorySearchEngine extends SearchEngine {
   private indexes = new Map<IndexName, IndexData>();
+  
+  // Define the indexes mapper as required by the abstract class
+  protected readonly indexersMapper = new Map<IndexName, IndexDefinition>([
+    ['programs', { mappings: {}, settings: {} }],
+    ['episodes', { mappings: {}, settings: {} }]
+  ]);
+
+  /**
+   * Bootstrap multiple indexes with their definitions (idempotent).
+   */
+  protected async bootstrapIndexes(indexersMapper: Map<IndexName, IndexDefinition>): Promise<void> {
+    for (const [name, definition] of indexersMapper) {
+      await this.ensureIndex(name, definition);
+    }
+  }
 
   /**
    * Ensure index exists with proper mappings/settings (idempotent).
    */
-  async ensureIndex(name: IndexName, def: IndexDefinition = {}): Promise<void> {
+  private async ensureIndex(name: IndexName, def: IndexDefinition = {}): Promise<void> {
     if (!this.indexes.has(name)) {
       this.indexes.set(name, {
         definition: def,
@@ -37,8 +52,10 @@ export class InMemorySearchEngine implements SearchEngine {
    * Idempotent upsert of one document.
    */
   async index(index: IndexName, doc: Doc): Promise<void> {
-    await this.ensureIndex(index);
-    const indexData = this.indexes.get(index)!;
+    const indexData = this.indexes.get(index);
+    if (!indexData) {
+      throw new IndexNotFoundError(index);
+    }
     indexData.documents.set(doc.id, { ...doc });
   }
 

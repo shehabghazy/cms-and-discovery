@@ -29,8 +29,7 @@ export class EpisodeIndexer {
     
     console.log(`📄 Document to index:`, doc);
     
-    // Ensure index exists before indexing
-    await this.engine.ensureIndex('episodes');
+    // Index is already bootstrapped during SearchEngine initialization
     await this.engine.index('episodes', doc);
     
     console.log(`✅ Episode ${episodeData.id} successfully indexed in 'episodes' index`);

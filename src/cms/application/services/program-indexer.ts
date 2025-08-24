@@ -30,8 +30,7 @@ export class ProgramIndexer {
     
     console.log(`📄 Document to index:`, doc);
     
-    // Ensure index exists before indexing
-    await this.engine.ensureIndex('programs');
+    // Index is already bootstrapped during SearchEngine initialization
     await this.engine.index('programs', doc);
     
     console.log(`✅ Program ${programData.id} successfully indexed in 'programs' index`);
