@@ -1,9 +1,15 @@
 // Domain port for search engine abstraction
 // Provides a clean interface for search operations without implementation details
 
-import type { IndexName, Doc, IndexDefinition } from './types.js';
+import type { SearchEngineConfig, IndexName, Doc, IndexDefinition } from './types.js';
+
 
 export abstract class SearchEngine {
+  /**
+   * Child classes must define their configuration as a private attribute
+   */
+  protected abstract readonly config: SearchEngineConfig;
+
   /**
    * Child classes must define their index mappings as a private attribute
    */
@@ -14,7 +20,9 @@ export abstract class SearchEngine {
    * Must be called after construction to set up the indexes.
    */
   async initialize(): Promise<void> {
+    console.log(`🚀 Starting search engine initialization...`);
     await this.bootstrapIndexes(this.indexersMapper);
+    console.log(`🎉 Search engine initialization completed`);
   }
 
   /**

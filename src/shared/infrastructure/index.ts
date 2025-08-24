@@ -3,5 +3,6 @@ export {
 } from './events/index.js';
 
 export {
-  InMemorySearchEngine
+  InMemorySearchEngine,
+  OpenSearchSearchEngine
 } from './search-engine/index.js';

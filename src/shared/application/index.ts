@@ -27,3 +27,8 @@ export {
 export { 
   PaginationMetaSchema , 
 } from './pagination-query/pagination-schema.js';
+
+export {
+  SearchEngineFactory,
+  type SearchEngineType
+} from '../infrastructure/search-engine/search-engine-factory.js';

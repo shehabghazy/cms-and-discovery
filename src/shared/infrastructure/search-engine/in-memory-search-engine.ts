@@ -21,6 +21,11 @@ interface IndexData {
 export class InMemorySearchEngine extends SearchEngine {
   private indexes = new Map<IndexName, IndexData>();
   
+  // Define the configuration as required by the abstract class
+  protected readonly config = {
+    type: 'memory'
+  };
+  
   // Define the indexes mapper as required by the abstract class
   protected readonly indexersMapper = new Map<IndexName, IndexDefinition>([
     ['programs', { mappings: {}, settings: {} }],
@@ -31,9 +36,13 @@ export class InMemorySearchEngine extends SearchEngine {
    * Bootstrap multiple indexes with their definitions (idempotent).
    */
   protected async bootstrapIndexes(indexersMapper: Map<IndexName, IndexDefinition>): Promise<void> {
+    console.log(`📝 Bootstrapping ${indexersMapper.size} indexes for in-memory search engine`);
     for (const [name, definition] of indexersMapper) {
+      console.log(`🔧 Creating index: ${name}`);
       await this.ensureIndex(name, definition);
+      console.log(`✅ Index created: ${name}`);
     }
+    console.log(`🎯 All in-memory indexes bootstrapped successfully`);
   }
 
   /**

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import Fastify from 'fastify';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { Type, Static } from '@sinclair/typebox';
@@ -12,7 +13,7 @@ import { registerAssetRoutes } from './assets/api/asset-routes.js';
 import { InMemoryProgramRepository, InMemoryEpisodeRepository } from './cms/infrastructure/index.js';
 import { InMemoryAssetRepository, LocalFileStorageProvider } from './assets/infrastructure/index.js';
 import { InMemoryEventBus } from './shared/infrastructure/events/in-memory-event-bus.js';
-import { InMemorySearchEngine } from './shared/infrastructure/search-engine/in-memory-search-engine.js';
+import { SearchEngineFactory, type SearchEngineType } from './shared/application/index.js';
 
 const PORT: number = parseInt(process.env.PORT || '3000', 10);
 const HOST: string = process.env.HOST || '0.0.0.0';
@@ -96,8 +97,13 @@ const storageProvider = new LocalFileStorageProvider();
 
 // --- Event System Setup ---
 const eventBus = new InMemoryEventBus();
-const searchEngine = new InMemorySearchEngine();
-await searchEngine.initialize(); // Bootstrap indexes
+
+// Initialize search engine based on environment variable
+// SEARCH_ENGINE_TYPE: 'memory' (default) or 'opensearch'
+// For OpenSearch, also set: OPENSEARCH_HOST, OPENSEARCH_USERNAME, OPENSEARCH_PASSWORD
+const searchEngineType = (process.env.SEARCH_ENGINE_TYPE || 'memory') as SearchEngineType;
+const searchEngine = await SearchEngineFactory.create(searchEngineType);
+
 registerCMSEventHandlers(eventBus, searchEngine);
 
 // --- Feature routes

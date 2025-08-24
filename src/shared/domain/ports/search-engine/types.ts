@@ -1,5 +1,9 @@
 // Search engine type definitions
 
+export interface SearchEngineConfig {
+  [key: string]: any;
+}
+
 export type IndexName = string;
 
 export type Doc = { id: string } & Record<string, unknown>;
@@ -23,3 +27,4 @@ export interface SearchResult<T = Doc> {
   total: number;
   took?: number;
 }
+
