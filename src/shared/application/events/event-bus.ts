@@ -19,12 +19,12 @@ export interface EventBus {
    * @param eventType The type of event to listen for
    * @param handler The handler instance to handle the event
    */
-  subscribe(eventType: string, handler: IEventHandler): void;
+  subscribe<T extends DomainEvent>(eventType: string, handler: IEventHandler<T>): void;
 
   /**
    * Unsubscribes a handler from a specific event type
    * @param eventType The type of event to stop listening for
    * @param handler The handler instance to unsubscribe
    */
-  unsubscribe(eventType: string, handler: IEventHandler): void;
+  unsubscribe<T extends DomainEvent>(eventType: string, handler: IEventHandler<T>): void;
 }

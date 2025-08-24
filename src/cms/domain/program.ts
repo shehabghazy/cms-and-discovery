@@ -8,6 +8,7 @@ import {
   type ProgramUpdateInput,
   type ProgramChangeStatusInput
 } from './models/index.js';
+import { ProgramPublishedEvent } from './events/index.js';
 
 export class Program extends DomainBase {
   public title: string;
@@ -52,6 +53,7 @@ export class Program extends DomainBase {
 
   /** Change status with automatic published_at handling */
   public changeStatus(input: ProgramChangeStatusInput): void {
+    const previousStatus = this.status;
     const statusChange = validateProgramChangeStatus(input, this.status); // throws DomainValidationError if invalid
 
     this.status = statusChange.status;
@@ -64,5 +66,18 @@ export class Program extends DomainBase {
     // Note: once published, status cannot go back to draft
 
     this.touch();
+
+    // Emit domain event when program is published
+    if (previousStatus !== ProgramStatus.PUBLISHED && this.status === ProgramStatus.PUBLISHED) {
+      this.addDomainEvent(new ProgramPublishedEvent({
+        programId: this.id,
+        slug: this.slug,
+        title: this.title,
+        description: this.description,
+        programType: this.type,
+        language: this.language,
+        publishedAt: this.published_at!, // We know it's not null since we just set it above
+      }));
+    }
   }
 }

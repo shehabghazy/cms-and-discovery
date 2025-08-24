@@ -4,12 +4,17 @@ import { ChangeProgramStatusUseCase } from '../application/index.js';
 import { type ProgramRepository } from '../domain/index.js';
 import { ErrorSchema } from '../../shared/api/error-schema.js';
 import { Type } from '@sinclair/typebox';
+import { EventBus } from '../../shared/application/events/event-bus.js';
 
 
 export function registerChangeProgramStatusRoute(app: FastifyInstance, dependencies: {
   programRepository: ProgramRepository;
+  eventBus: EventBus;
 }) {
-  const changeProgramStatusUseCase = new ChangeProgramStatusUseCase(dependencies.programRepository);
+  const changeProgramStatusUseCase = new ChangeProgramStatusUseCase(
+    dependencies.programRepository,
+    dependencies.eventBus
+  );
 
   app.put('/programs/:id/status', {
     schema: {
