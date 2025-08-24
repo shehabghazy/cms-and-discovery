@@ -28,7 +28,7 @@ export class CreateProgramUseCase extends CommandUseCase<CreateProgramInput, Cre
       slug: input.programData.slug,
       description: input.programData.description || null,
       cover: input.programData.cover || null,
-      language: input.programData.language || 'ar' // Default to Arabic
+      language: input.programData.language || 'en' // Default to Arabic
     });
     
 

@@ -25,7 +25,7 @@ async function testProgramOperations(): Promise<void> {
     type: 'podcast',
     slug: 'javascript-fundamentals',
     description: 'Learn the basics of JavaScript programming.',
-    language: 'ar' // Default language
+    language: 'en' // Default language
   };
 
   const createResult = await createUseCase.execute({ programData });

@@ -120,7 +120,7 @@ async function testCompleteEpisodeApiCycle() {
         },
         {
           content: 'Welcome to clean architecture... (Arabic)',
-          language: 'ar',
+          language: 'en',
           format: 'vtt'
         }
       ]

@@ -24,7 +24,4 @@ export enum EpisodeKind {
 
 export enum Language {
   ENGLISH = 'en',
-  ARABIC = 'ar',
-  FRENCH = 'fr',
-  SPANISH = 'es'
 }

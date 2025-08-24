@@ -8,7 +8,7 @@ export type ProgramCreateInput = {
   slug: string;
   description?: string | null;
   cover?: string | null; // asset_id
-  language?: string; // ISO-639-1, defaults to 'ar'
+  language?: string; // ISO-639-1, defaults to 'en'
   created_at?: Date;
   updated_at?: Date | null;
 };
@@ -45,7 +45,7 @@ export function validateProgramCreate(raw: ProgramCreateInput) {
   }
 
   // Language validation with default
-  const language = raw.language || 'ar';
+  const language = raw.language || 'en';
   if (!isValidLanguageCode(language)) {
     issues.push({ field: 'language', message: 'must be a valid ISO-639-1 language code' });
   }

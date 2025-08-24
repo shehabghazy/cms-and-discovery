@@ -47,7 +47,7 @@ async function testNewAPI() {
         title: 'Advanced Modern Web Development Course',
         description: 'Advanced course covering React, TypeScript, Node.js, and GraphQL',
         type: 'documentary',
-        language: 'ar'
+        language: 'en'
       };
 
       const updateResponse = await fetch(`${BASE_URL}/programs/${programId}`, {

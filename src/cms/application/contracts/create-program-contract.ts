@@ -8,7 +8,7 @@ export const ProgramCreateDto = Type.Object({
   slug: Type.String({ pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$', maxLength: 80 }),
   description: Type.Optional(Type.Union([Type.String({ maxLength: 5000 }), Type.Null()])),
   cover: Type.Optional(Type.String({ format: 'uuid' })), // asset_id
-  language: Type.Optional(Type.String({ pattern: '^[a-z]{2}$' })), // ISO-639-1, defaults to 'ar'
+  language: Type.Optional(Type.String({ pattern: '^[a-z]{2}$' })), // ISO-639-1, defaults to 'en'
 }, { additionalProperties: false });
 
 export type ProgramCreateDto = Static<typeof ProgramCreateDto>;

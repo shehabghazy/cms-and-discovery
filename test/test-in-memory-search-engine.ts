@@ -1,6 +1,6 @@
 // Basic test for InMemorySearchEngine to verify functionality
 
-import { InMemorySearchEngine } from './in-memory-search-engine.js';
+import { InMemorySearchEngine } from '../src/shared/infrastructure/search-engine/in-memory-search-engine.js';
 
 /**
  * Simple test runner for InMemorySearchEngine
