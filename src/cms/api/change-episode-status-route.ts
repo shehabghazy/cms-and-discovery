@@ -2,13 +2,18 @@ import type { FastifyInstance } from 'fastify';
 import { EpisodeChangeStatusDto, EpisodeDto } from '../application/index.js';
 import { ChangeEpisodeStatusUseCase } from '../application/index.js';
 import { type EpisodeRepository } from '../domain/index.js';
+import { EventBus } from '../../shared/application/events/event-bus.js';
 import { ErrorSchema } from '../../shared/api/error-schema.js';
 import { Type } from '@sinclair/typebox';
 
 export function registerChangeEpisodeStatusRoute(app: FastifyInstance, dependencies: {
   episodeRepository: EpisodeRepository;
+  eventBus: EventBus;
 }) {
-  const changeEpisodeStatusUseCase = new ChangeEpisodeStatusUseCase(dependencies.episodeRepository);
+  const changeEpisodeStatusUseCase = new ChangeEpisodeStatusUseCase(
+    dependencies.episodeRepository,
+    dependencies.eventBus
+  );
 
   app.put('/episodes/:id/status', {
     schema: {

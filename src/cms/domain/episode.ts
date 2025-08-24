@@ -10,6 +10,7 @@ import {
   type EpisodeChangeStatusInput,
   type EpisodeMoveToProgram
 } from './models/index.js';
+import { EpisodePublishedEvent, EpisodeHiddenEvent } from './events/index.js';
 
 export class Episode extends DomainBase {
   public program_id: string;
@@ -57,6 +58,7 @@ export class Episode extends DomainBase {
 
   /** Change status with automatic published_at handling */
   public changeStatus(input: EpisodeChangeStatusInput): void {
+    const previousStatus = this.status;
     const statusChange = validateEpisodeChangeStatus(input, this.status); // throws DomainValidationError if invalid
 
     this.status = statusChange.status;
@@ -69,6 +71,26 @@ export class Episode extends DomainBase {
     // Note: once published, status cannot go back to draft
 
     this.touch();
+
+    // Emit EpisodePublishedEvent when episode is published
+    if (previousStatus !== EpisodeStatus.PUBLISHED && this.status === EpisodeStatus.PUBLISHED) {
+      this.addDomainEvent(new EpisodePublishedEvent({
+        episodeId: this.id,
+        programId: this.program_id,
+        slug: this.slug,
+        title: this.title,
+        description: this.description,
+        kind: this.kind,
+        publishedAt: this.published_at!, // We know it's not null since we just set it above
+      }));
+    }
+
+    // Emit EpisodeHiddenEvent when episode is hidden
+    if (this.status === EpisodeStatus.HIDDEN) {
+      this.addDomainEvent(new EpisodeHiddenEvent({
+        episodeId: this.id,
+      }));
+    }
   }
 
   /** Move episode to another program with slug uniqueness validation */

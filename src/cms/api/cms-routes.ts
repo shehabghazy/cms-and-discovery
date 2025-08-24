@@ -15,7 +15,8 @@ export function registerCMSRoutes(app: FastifyInstance, dependencies: {
   });
   registerEpisodeRoutes(app, {
     programRepository: dependencies.programRepository,
-    episodeRepository: dependencies.episodeRepository
+    episodeRepository: dependencies.episodeRepository,
+    eventBus: dependencies.eventBus
   });
   
   console.log('All CMS routes registered');

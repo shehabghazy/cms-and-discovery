@@ -7,6 +7,7 @@ import {
 } from '../src/cms/application/usecases/index.js';
 import { InMemoryEpisodeRepository, InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
 import { Program, ProgramType, EpisodeKind } from '../src/cms/domain/index.js';
+import { InMemoryEventBus } from '../src/shared/infrastructure/events/in-memory-event-bus.js';
 
 async function testEpisodeUseCases(): Promise<void> {
   console.log('🔧 Testing Episode Use Cases\n');
@@ -14,10 +15,13 @@ async function testEpisodeUseCases(): Promise<void> {
   const episodeRepo = new InMemoryEpisodeRepository();
   const programRepo = new InMemoryProgramRepository();
   
+  // Event system
+  const eventBus = new InMemoryEventBus();
+  
   // Create use case instances
   const createEpisodeUseCase = new CreateEpisodeUseCase(episodeRepo, programRepo);
   const updateEpisodeUseCase = new UpdateEpisodeUseCase(episodeRepo);
-  const changeStatusUseCase = new ChangeEpisodeStatusUseCase(episodeRepo);
+  const changeStatusUseCase = new ChangeEpisodeStatusUseCase(episodeRepo, eventBus);
   const moveEpisodeUseCase = new MoveEpisodeToProgramUseCase(episodeRepo, programRepo);
   const listEpisodesUseCase = new ListEpisodesUseCase(episodeRepo);
 
