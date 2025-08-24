@@ -1,5 +1,5 @@
 import { Value } from '@sinclair/typebox/value';
-import { CreateProgramUseCase, ProgramCreateDto } from '../src/cms/application/index.js';
+import { CreateProgramUseCase, ProgramCreateDto } from '../src/cms/internal/application/index.js';
 
 async function testCreateProgramWithValidation(): Promise<void> {
   console.log('🚀 Testing CreateProgram with TypeBox Validation\n');

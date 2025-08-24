@@ -1,7 +1,7 @@
 // Test the complete program creation flow
-import { CreateProgramUseCase } from '../src/cms/application/usecases/create-program-usecase.js';
-import { InMemoryProgramRepository } from '../src/cms/infrastructure/repositories/InMemoryProgramRepository.js';
-import { ProgramType, ProgramStatus } from '../src/cms/domain/enums/index.js';
+import { CreateProgramUseCase } from '../src/cms/internal//application/usecases/create-program-usecase.js';
+import { InMemoryProgramRepository } from '../src/cms/internal//infrastructure/repositories/InMemoryProgramRepository.js';
+import { ProgramType, ProgramStatus } from '../src/cms/internal//domain/enums/index.js';
 import { ConflictError } from '../src/shared/application/usecase-errors.js';
 import { DomainValidationError } from '../src/shared/domain/domain-errors.js';
 

@@ -1,4 +1,4 @@
-import { Episode, EpisodeKind, EpisodeStatus } from '../src/cms/domain/index.js';
+import { Episode, EpisodeKind, EpisodeStatus } from '../src/cms/internal/domain/index.js';
 
 function testEpisodeRequirements(): void {
   console.log('🎬 Testing Episode Domain Requirements\n');

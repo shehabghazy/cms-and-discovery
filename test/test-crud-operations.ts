@@ -5,8 +5,8 @@ import {
   type ProgramCreateDto,
   type ProgramUpdateDto,
   type ProgramChangeStatusDto
-} from '../src/cms/application/index.js';
-import { InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
+} from '../src/cms/internal/application/index.js';
+import { InMemoryProgramRepository } from '../src/cms/internal/infrastructure/index.js';
 import { InMemoryEventBus } from '../src/shared/infrastructure/events/in-memory-event-bus.js';
 
 async function testProgramOperations(): Promise<void> {

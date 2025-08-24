@@ -1,9 +1,9 @@
-import { CommandUseCase } from '../../../shared/index.js';
+import { CommandUseCase } from '../../../../shared/index.js';
 import type { EpisodeDto } from '../contracts/create-episode-contract.js';
 import type { EpisodeUpdateDto } from '../contracts/update-episode-contract.js';
 import { Episode, type EpisodeRepository } from '../../domain/index.js';
 import { toEpisodeDto } from '../mappers/episode-mapper.js';
-import { NotFoundError } from '../../../shared/application/usecase-errors.js';
+import { NotFoundError } from '../../../../shared/application/usecase-errors.js';
 
 export type UpdateEpisodeInput = { 
   episodeId: string; 

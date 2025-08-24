@@ -1,6 +1,6 @@
 import { Type } from '@sinclair/typebox';
 import { ProgramDto } from './create-program-contract.js';
-import { PaginationMetaSchema } from '../../../shared/index.js';
+import { PaginationMetaSchema } from '../../../../shared/index.js';
 
 // Query parameters for listing programs with pagination
 export const ListProgramsQuery = Type.Object({

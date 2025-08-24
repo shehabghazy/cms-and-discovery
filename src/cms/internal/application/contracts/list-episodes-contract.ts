@@ -1,7 +1,7 @@
 import { Type, Static } from '@sinclair/typebox';
 import { EpisodeKind, EpisodeStatus } from './shared-types.js';
 import { EpisodeDto } from './create-episode-contract.js';
-import { PaginationMetaSchema } from '../../../shared/index.js';
+import { PaginationMetaSchema } from '../../../../shared/index.js';
 
 // Query parameters for listing episodes with pagination
 export const ListEpisodesQuery = Type.Object({

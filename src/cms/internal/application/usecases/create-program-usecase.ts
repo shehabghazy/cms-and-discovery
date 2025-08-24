@@ -1,8 +1,8 @@
-import { CommandUseCase } from '../../../shared/index.js';
+import { CommandUseCase } from '../../../../shared/index.js';
 import type { ProgramDto, ProgramCreateDto } from '../contracts/create-program-contract.js';
 import { Program, ProgramType, type ProgramRepository } from '../../domain/index.js';
 import { toProgramDto } from '../mappers/program-mapper.js';
-import { ConflictError } from '../../../shared/application/usecase-errors.js';
+import { ConflictError } from '../../../../shared/application/usecase-errors.js';
 
 export type CreateProgramInput = { programData: ProgramCreateDto };
 export type CreateProgramOutput = { program: ProgramDto };

@@ -1,5 +1,5 @@
-import { CreateProgramUseCase, type ProgramCreateDto } from '../src/cms/application/index.js';
-import { Program } from '../src/cms/domain/index.js';
+import { CreateProgramUseCase, type ProgramCreateDto } from '../src/cms/internal/application/index.js';
+import { Program } from '../src/cms/internal/domain/index.js';
 
 async function testCreateProgramWithContracts(): Promise<void> {
   console.log('🚀 Testing CreateProgram with Contracts Pattern\n');

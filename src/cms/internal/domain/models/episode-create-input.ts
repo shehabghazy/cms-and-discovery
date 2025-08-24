@@ -1,5 +1,5 @@
 import { EpisodeKind, EpisodeStatus } from '../enums/index.js';
-import { isUuid, isNonEmpty, isValidSlug, isEnumValue, DomainValidationError } from '../../../shared/utilities/index.js';
+import { isUuid, isNonEmpty, isValidSlug, isEnumValue, DomainValidationError } from '../../../../shared/utilities/index.js';
 
 export type EpisodeCreateInput = {
   id: string;

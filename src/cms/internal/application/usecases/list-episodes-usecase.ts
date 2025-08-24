@@ -1,4 +1,4 @@
-import { QueryListUseCase, QueryListResult, PaginationMeta } from '../../../shared/index.js';
+import { QueryListUseCase, QueryListResult, PaginationMeta } from '../../../../shared/index.js';
 import type { EpisodeDto } from '../contracts/create-episode-contract.js';
 import { Episode, type EpisodeRepository } from '../../domain/index.js';
 import { toEpisodeDto } from '../mappers/episode-mapper.js';

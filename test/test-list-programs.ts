@@ -1,6 +1,6 @@
-import { InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
-import { ListProgramsUseCase, CreateProgramUseCase } from '../src/cms/application/index.js';
-import { Program, ProgramType, ProgramStatus } from '../src/cms/domain/index.js';
+import { InMemoryProgramRepository } from '../src/cms/internal/infrastructure/index.js';
+import { ListProgramsUseCase, CreateProgramUseCase } from '../src/cms/internal/application/index.js';
+import { Program, ProgramType, ProgramStatus } from '../src/cms/internal/domain/index.js';
 
 console.log('🧪 Testing List Programs Feature...\n');
 

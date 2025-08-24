@@ -1,4 +1,4 @@
-import { InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
+import { InMemoryProgramRepository } from '../src/cms/internal/infrastructure/index.js';
 
 console.log('🚀 Testing List Programs API\n');
 

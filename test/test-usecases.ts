@@ -2,9 +2,9 @@ import {
   CreateProgramUseCase,
   UpdateProgramUseCase,
   ChangeProgramStatusUseCase
-} from '../src/cms/application/index.js';
-import { ProgramType, ProgramStatus } from '../src/cms/domain/index.js';
-import { InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
+} from '../src/cms/internal/application/index.js';
+import { ProgramType, ProgramStatus } from '../src/cms/internal/domain/index.js';
+import { InMemoryProgramRepository } from '../src/cms/internal/infrastructure/index.js';
 import { InMemoryEventBus } from '../src/shared/infrastructure/events/in-memory-event-bus.js';
 
 async function testProgramUseCases(): Promise<void> {

@@ -1,5 +1,5 @@
-import { Episode, EpisodeKind, EpisodeStatus } from '../src/cms/domain/index.js';
-import { InMemoryEpisodeRepository } from '../src/cms/infrastructure/index.js';
+import { Episode, EpisodeKind, EpisodeStatus } from '../src/cms/internal/domain/index.js';
+import { InMemoryEpisodeRepository } from '../src/cms/internal/infrastructure/index.js';
 
 async function testEpisodeRepository(): Promise<void> {
   console.log('🗃️ Testing Episode Repository Implementation\n');

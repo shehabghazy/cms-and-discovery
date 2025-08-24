@@ -1,8 +1,8 @@
-import { IEventHandler } from '../../../shared/application/events/event-handler.js';
-import { EventBus } from '../../../shared/application/events/event-bus.js';
+import { IEventHandler } from '../../../../shared/application/events/event-handler.js';
+import { EventBus } from '../../../../shared/application/events/event-bus.js';
 import { ProgramPublishedEvent, ProgramArchivedEvent } from '../../domain/events/index.js';
 import { ProgramIndexer } from '../services/program-indexer.js';
-import { DomainEvent } from '../../../shared/domain/events/index.js';
+import { DomainEvent } from '../../../../shared/domain/events/index.js';
 
 // Strategy interface for handling specific event types
 interface StatusHandlingStrategy<T extends DomainEvent> {

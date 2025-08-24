@@ -1,9 +1,9 @@
-import { CommandUseCase } from '../../../shared/index.js';
+import { CommandUseCase } from '../../../../shared/index.js';
 import type { EpisodeDto } from '../contracts/create-episode-contract.js';
 import type { EpisodeMoveToProgram } from '../contracts/move-episode-to-program-contract.js';
 import { type EpisodeRepository, type ProgramRepository } from '../../domain/index.js';
 import { toEpisodeDto } from '../mappers/episode-mapper.js';
-import { ConflictError, NotFoundError } from '../../../shared/application/usecase-errors.js';
+import { ConflictError, NotFoundError } from '../../../../shared/application/usecase-errors.js';
 
 export type MoveEpisodeToProgramInput = { 
   episodeId: string; 

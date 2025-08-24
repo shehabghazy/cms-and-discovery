@@ -1,9 +1,9 @@
-import { CommandUseCase } from '../../../shared/index.js';
+import { CommandUseCase } from '../../../../shared/index.js';
 import type { ProgramDto } from '../contracts/create-program-contract.js';
 import type { ProgramUpdateDto } from '../contracts/update-program-contract.js';
 import { Program, ProgramType, type ProgramRepository } from '../../domain/index.js';
 import { toProgramDto } from '../mappers/program-mapper.js';
-import { NotFoundError } from '../../../shared/application/usecase-errors.js';
+import { NotFoundError } from '../../../../shared/application/usecase-errors.js';
 
 export type UpdateProgramInput = { 
   programId: string; 

@@ -3,8 +3,8 @@ import {
   CreateProgramUseCase, 
   ProgramCreateDto, 
   ProgramDto 
-} from '../src/cms/application/index.js';
-import { type ProgramRepository, Program } from '../src/cms/domain/index.js';
+} from '../src/cms/internal/application/index.js';
+import { type ProgramRepository, Program } from '../src/cms/internal/domain/index.js';
 
 // Simple mock repository for testing
 const createMockRepository = (): ProgramRepository => ({

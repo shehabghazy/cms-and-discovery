@@ -1,4 +1,4 @@
-import { Program, Episode, ProgramType, ProgramStatus, EpisodeKind, EpisodeStatus } from '../src/cms/domain/index.js';
+import { Program, Episode, ProgramType, ProgramStatus, EpisodeKind, EpisodeStatus } from '../src/cms/internal/domain/index.js';
 
 function testDomainEntities(): void {
   console.log('🚀 Testing CMS Domain Entities\n');

@@ -2,7 +2,7 @@
 import { Program, type ProgramRepository } from '../../domain/index.js';
 import { ConflictError } from '../../application/index.js';
 import { ListProgramsFilters } from '../../domain/models/list-programs-input.js';
-import { PaginationOptions } from '../../../shared/application/pagination-query/query-list.js';
+import { PaginationOptions } from '../../../../shared/application/pagination-query/query-list.js';
 
 /**
  * In-memory repository implementation for development/testing

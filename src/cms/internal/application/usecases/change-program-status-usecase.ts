@@ -1,11 +1,11 @@
-import { CommandUseCase } from '../../../shared/index.js';
+import { CommandUseCase } from '../../../../shared/index.js';
 import type { ProgramDto } from '../contracts/create-program-contract.js';
 import type { ProgramChangeStatusDto } from '../contracts/change-program-status-contract.js';
 import { Program, ProgramStatus, type ProgramRepository } from '../../domain/index.js';
 import { ProgramPublishedEvent, ProgramArchivedEvent } from '../../domain/events/index.js';
 import { toProgramDto } from '../mappers/program-mapper.js';
-import { NotFoundError } from '../../../shared/application/usecase-errors.js';
-import { EventBus } from '../../../shared/application/events/event-bus.js';
+import { NotFoundError } from '../../../../shared/application/usecase-errors.js';
+import { EventBus } from '../../../../shared/application/events/event-bus.js';
 
 export type ChangeProgramStatusInput = { 
   programId: string; 

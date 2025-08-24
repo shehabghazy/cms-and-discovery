@@ -8,9 +8,9 @@ import cors from '@fastify/cors';
 import multipart from '@fastify/multipart';
 
 import { registerErrorHandler } from './shared/api/error-handler.js';
-import { registerCMSRoutes, registerCMSEventHandlers } from './cms/api/index.js';
+import { registerCMSRoutes, registerCMSEventHandlers } from './cms/internal/controller/index.js';
 import { registerAssetRoutes } from './assets/api/asset-routes.js';
-import { InMemoryProgramRepository, InMemoryEpisodeRepository } from './cms/infrastructure/index.js';
+import { InMemoryProgramRepository, InMemoryEpisodeRepository } from './cms/internal/infrastructure/index.js';
 import { InMemoryAssetRepository, LocalFileStorageProvider } from './assets/infrastructure/index.js';
 import { InMemoryEventBus } from './shared/infrastructure/events/in-memory-event-bus.js';
 import { SearchEngineFactory, type SearchEngineType } from './shared/application/index.js';

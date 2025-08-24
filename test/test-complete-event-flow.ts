@@ -1,9 +1,9 @@
-import { Program, ProgramStatus, ProgramType } from '../src/cms/domain/index.js';
-import { InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
-import { ChangeProgramStatusUseCase } from '../src/cms/application/index.js';
+import { Program, ProgramStatus, ProgramType } from '../src/cms/internal/domain/index.js';
+import { InMemoryProgramRepository } from '../src/cms/internal//infrastructure/index.js';
+import { ChangeProgramStatusUseCase } from '../src/cms/internal//application/index.js';
 import { InMemoryEventBus } from '../src/shared/infrastructure/events/in-memory-event-bus.js';
 import { InMemorySearchEngine } from '../src/shared/infrastructure/search-engine/in-memory-search-engine.js';
-import { ProgramIndexer } from '../src/cms/application/services/program-indexer.js';
+import { ProgramIndexer } from '../src/cms/internal//application/services/program-indexer.js';
 
 async function testCompleteEventFlow() {
   console.log('🧪 Testing Complete Program Publishing Event Flow\n');

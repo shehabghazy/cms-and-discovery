@@ -1,5 +1,5 @@
-import { Episode, EpisodeKind } from '../src/cms/domain/index.js';
-import { InMemoryEpisodeRepository } from '../src/cms/infrastructure/index.js';
+import { Episode, EpisodeKind } from '../src/cms/internal/domain/index.js';
+import { InMemoryEpisodeRepository } from '../src/cms/internal/infrastructure/index.js';
 
 async function testSlugUniquenessInPrograms(): Promise<void> {
   console.log('🔒 Testing Slug Uniqueness Within Programs\n');

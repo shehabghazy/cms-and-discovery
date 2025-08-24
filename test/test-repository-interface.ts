@@ -1,5 +1,5 @@
-import { CreateProgramUseCase, type ProgramCreateDto } from '../src/cms/application/index.js';
-import { type ProgramRepository, Program } from '../src/cms/domain/index.js';
+import { CreateProgramUseCase, type ProgramCreateDto } from '../src/cms/internal/application/index.js';
+import { type ProgramRepository, Program } from '../src/cms/internal/domain/index.js';
 
 // Mock repository implementation for testing
 class MockProgramRepository implements ProgramRepository {

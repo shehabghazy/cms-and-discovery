@@ -1,11 +1,11 @@
-import { CommandUseCase } from '../../../shared/index.js';
+import { CommandUseCase } from '../../../../shared/index.js';
 import type { EpisodeDto } from '../contracts/create-episode-contract.js';
 import type { EpisodeChangeStatusDto } from '../contracts/change-episode-status-contract.js';
 import { EpisodeStatus, type EpisodeRepository } from '../../domain/index.js';
 import { EpisodePublishedEvent, EpisodeHiddenEvent } from '../../domain/events/index.js';
 import { toEpisodeDto } from '../mappers/episode-mapper.js';
-import { NotFoundError } from '../../../shared/application/usecase-errors.js';
-import { EventBus } from '../../../shared/application/events/event-bus.js';
+import { NotFoundError } from '../../../../shared/application/usecase-errors.js';
+import { EventBus } from '../../../../shared/application/events/event-bus.js';
 
 export type ChangeEpisodeStatusInput = { 
   episodeId: string; 

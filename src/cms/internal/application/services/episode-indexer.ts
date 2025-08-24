@@ -1,4 +1,4 @@
-import { SearchEngine } from '../../../shared/domain/ports/search-engine/search-engine-port.js';
+import { SearchEngine } from '../../../../shared/domain/ports/search-engine/search-engine-port.js';
 
 // Interface for indexable episode data
 export interface IndexableEpisodeData {

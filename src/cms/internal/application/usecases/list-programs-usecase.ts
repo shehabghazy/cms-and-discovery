@@ -1,4 +1,4 @@
-import { QueryListUseCase, QueryListResult, PaginationMeta } from '../../../shared/index.js';
+import { QueryListUseCase, QueryListResult, PaginationMeta } from '../../../../shared/index.js';
 import type { ProgramDto } from '../contracts/create-program-contract.js';
 import { Program, type ProgramRepository } from '../../domain/index.js';
 import { toProgramDto } from '../mappers/program-mapper.js';

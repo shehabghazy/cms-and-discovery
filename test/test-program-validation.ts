@@ -1,4 +1,4 @@
-import { Program, ProgramType, ProgramStatus } from '../src/cms/domain/index.js';
+import { Program, ProgramType, ProgramStatus } from '../src/cms/internal/domain/index.js';
 
 function testProgramValidation(): void {
   console.log('🧪 Testing Program Validation\n');

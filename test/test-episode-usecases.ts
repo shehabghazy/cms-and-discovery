@@ -4,9 +4,9 @@ import {
   ChangeEpisodeStatusUseCase,
   MoveEpisodeToProgramUseCase,
   ListEpisodesUseCase 
-} from '../src/cms/application/usecases/index.js';
-import { InMemoryEpisodeRepository, InMemoryProgramRepository } from '../src/cms/infrastructure/index.js';
-import { Program, ProgramType, EpisodeKind } from '../src/cms/domain/index.js';
+} from '../src/cms/internal/application/usecases/index.js';
+import { InMemoryEpisodeRepository, InMemoryProgramRepository } from '../src/cms/internal/infrastructure/index.js';
+import { Program, ProgramType, EpisodeKind } from '../src/cms/internal/domain/index.js';
 import { InMemoryEventBus } from '../src/shared/infrastructure/events/in-memory-event-bus.js';
 
 async function testEpisodeUseCases(): Promise<void> {
