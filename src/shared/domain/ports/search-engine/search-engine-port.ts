@@ -47,6 +47,14 @@ export abstract class SearchEngine {
   abstract delete(index: IndexName, id: string[]): Promise<void>;
 
   /**
+   * Search for documents in an index.
+   * @param index - The index name
+   * @param query - Search query object
+   * @returns Array of matching documents
+   */
+  abstract search<T>(index: IndexName, query: object): Promise<T[]>;
+
+  /**
    * Useful in tests/dev after bulk ops. No-op on stores that don't need it.
    * @param index - Optional index name to refresh (refreshes all if not provided)
    */

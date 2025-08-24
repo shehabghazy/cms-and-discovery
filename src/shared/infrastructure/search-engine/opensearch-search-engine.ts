@@ -224,6 +224,27 @@ export class OpenSearchSearchEngine extends SearchEngine {
   }
 
   /**
+   * Search for documents in an index.
+   * @param index - The name of the index.
+   * @param query - Search query object.
+   * @returns Array of matching documents.
+   */
+  async search<T>(index: IndexName, query: object): Promise<T[]> {
+    try {
+      const { body } = await this.client.search({
+        index: index,
+        body: query,
+      });
+
+      // Extract the source documents from the search hits
+      return body.hits.hits.map((hit: any) => hit._source as T);
+    } catch (error) {
+      console.error(`❌ Error searching in index "${index}":`, error);
+      throw error;
+    }
+  }
+
+  /**
    * Forces a refresh on one or all indices, making all changes
    * immediately available for search.
    * @param index - Optional. The specific index to refresh. If omitted, all indices are refreshed.

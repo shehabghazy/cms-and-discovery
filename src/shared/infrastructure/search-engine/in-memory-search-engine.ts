@@ -83,6 +83,24 @@ export class InMemorySearchEngine extends SearchEngine {
   }
 
   /**
+   * Search for documents in an index (simplified for in-memory testing).
+   * @param index - The name of the index.
+   * @param query - Search query object (ignored for simplicity).
+   * @returns Array of all documents in the index.
+   */
+  async search<T>(index: IndexName, query: any): Promise<T[]> {
+    const indexData = this.indexes.get(index);
+    if (!indexData) {
+      throw new IndexNotFoundError(index);
+    }
+
+    // For in-memory implementation, just return all documents
+    // This is sufficient for testing and development purposes
+    const documents = Array.from(indexData.documents.values());
+    return documents as T[];
+  }
+
+  /**
    * Useful in tests/dev after bulk ops. No-op for in-memory implementation.
    */
   async refresh(index?: IndexName): Promise<void> {
