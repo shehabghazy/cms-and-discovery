@@ -12,7 +12,7 @@ import { registerCMSRoutes, registerCMSEventHandlers } from './cms/internal/cont
 import { registerAssetRoutes } from './assets/internal/api/asset-routes.js';
 import { registerDiscoveryRoutes } from './discovery/index.js';
 import { InMemoryProgramRepository, InMemoryEpisodeRepository } from './cms/internal/infrastructure/index.js';
-import { InMemoryAssetRepository, LocalFileStorageProvider } from './assets/internal/infrastructure/index.js';
+import { InMemoryAssetRepository, StorageProviderFactory, type StorageProviderType } from './assets/internal/infrastructure/index.js';
 import { InMemoryEventBus } from './shared/infrastructure/events/in-memory-event-bus.js';
 import { SearchEngineFactory, type SearchEngineType } from './shared/application/index.js';
 
@@ -94,7 +94,12 @@ app.get('/', {
 const programRepository = new InMemoryProgramRepository();
 const episodeRepository = new InMemoryEpisodeRepository();
 const assetRepository = new InMemoryAssetRepository();
-const storageProvider = new LocalFileStorageProvider();
+
+// Initialize storage provider based on environment variable
+// STORAGE_PROVIDER_TYPE: 'local' (default) or 'minio'
+// For MinIO, also set: MINIO_ENDPOINT, MINIO_ACCESS_KEY, MINIO_SECRET_KEY, etc.
+const storageProviderType = (process.env.STORAGE_PROVIDER_TYPE || 'local') as StorageProviderType;
+const storageProvider = await StorageProviderFactory.create(storageProviderType);
 
 // --- Event System Setup ---
 const eventBus = new InMemoryEventBus();

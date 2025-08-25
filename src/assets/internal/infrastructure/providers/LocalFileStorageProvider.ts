@@ -3,6 +3,11 @@ import * as path from 'path';
 import * as fs from 'fs/promises';
 import * as crypto from 'crypto';
 
+export type LocalFileStorageConfig = {
+  type: 'local';
+  storageDirectory: string;
+};
+
 /**
  * Local file system storage provider implementation for development/testing
  * In production, this would be replaced with cloud storage (AWS S3, Azure Blob, etc.)
@@ -10,14 +15,32 @@ import * as crypto from 'crypto';
 export class LocalFileStorageProvider implements StorageProvider {
   private readonly storageDirectory: string;
 
-  constructor(storageDirectory: string = './uploads') {
-    this.storageDirectory = path.resolve(storageDirectory);
+  constructor(
+    protected readonly config: LocalFileStorageConfig
+  ) {
+    this.storageDirectory = path.resolve(config.storageDirectory);
+  }
+
+  /**
+   * Initialize the storage provider and ensure required resources exist.
+   */
+  async initialize(): Promise<void> {
+    console.log(`🚀 Starting storage provider initialization...`);
+    await this.bootstrapStorage();
+    console.log(`🎉 Storage provider initialization completed`);
+  }
+
+  /**
+   * Bootstrap storage resources (ensure directory exists).
+   * Called automatically during initialization.
+   */
+  private async bootstrapStorage(): Promise<void> {
+    console.log(`📁 Bootstrapping local file storage at: ${this.storageDirectory}`);
+    await this.ensureStorageDirectory();
+    console.log(`✅ Local storage directory ready`);
   }
 
   async upload(fileInfo: FileInfo): Promise<string> {
-    // Ensure storage directory exists
-    await this.ensureStorageDirectory();
-    
     // Generate a unique storage key
     const timestamp = Date.now();
     const random = crypto.randomBytes(8).toString('hex');

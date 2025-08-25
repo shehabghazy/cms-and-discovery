@@ -12,7 +12,12 @@ async function testAssetUseCases(): Promise<void> {
   console.log('🚀 Testing Asset Use Cases\n');
 
   const repository = new InMemoryAssetRepository();
-  const storageProvider = new LocalFileStorageProvider('./test-uploads');
+  const config = {
+    type: 'local' as const,
+    storageDirectory: './test-uploads'
+  };
+  const storageProvider = new LocalFileStorageProvider(config);
+  await storageProvider.initialize();
 
   console.log('📤 Testing UploadAssetUseCase...');
   const uploadUseCase = new UploadAssetUseCase(repository, storageProvider);

@@ -1,4 +1,4 @@
-import { LocalFileStorageProvider } from '../src/assets/internal/infrastructure/index.js';
+import { LocalFileStorageProvider, type LocalFileStorageConfig } from '../src/assets/internal/infrastructure/index.js';
 import type { FileInfo } from '../src/assets/internal/domain/index.js';
 import * as fs from 'fs/promises';
 import * as path from 'path';
@@ -6,8 +6,14 @@ import * as path from 'path';
 async function testStorageProvider(): Promise<void> {
   console.log('🚀 Testing Storage Provider\n');
 
-  const testStorageDir = './test-uploads';
-  const storageProvider = new LocalFileStorageProvider(testStorageDir);
+  const config: LocalFileStorageConfig = {
+    type: 'local',
+    storageDirectory: './test-uploads'
+  };
+  const storageProvider = new LocalFileStorageProvider(config);
+  
+  // Initialize the storage provider
+  await storageProvider.initialize();
 
   console.log('📁 Creating test file info...');
   const testContent = 'This is a test file content for storage provider testing.';
@@ -83,6 +89,7 @@ async function testStorageProvider(): Promise<void> {
 
   console.log('\n🧹 Cleaning up test directory...');
   try {
+    const testStorageDir = config.storageDirectory;
     await fs.rmdir(testStorageDir);
     console.log('✅ Test directory cleaned up');
   } catch (error) {

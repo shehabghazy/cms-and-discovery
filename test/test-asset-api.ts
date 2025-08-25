@@ -27,7 +27,12 @@ async function testAssetAPI(): Promise<void> {
 
   // Setup dependencies
   const assetRepository = new InMemoryAssetRepository();
-  const storageProvider = new LocalFileStorageProvider('./test-api-uploads');
+  const config = {
+    type: 'local' as const,
+    storageDirectory: './test-api-uploads'
+  };
+  const storageProvider = new LocalFileStorageProvider(config);
+  await storageProvider.initialize();
 
   // Register asset routes
   registerAssetRoutes(app, { assetRepository, storageProvider });

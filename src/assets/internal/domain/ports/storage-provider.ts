@@ -16,6 +16,12 @@ export interface FileInfo {
  */
 export interface StorageProvider {
   /**
+   * Initialize the storage provider and ensure required resources exist.
+   * Must be called after construction to set up the storage environment.
+   */
+  initialize(): Promise<void>;
+
+  /**
    * Upload a file to the storage provider
    * @param fileInfo - Information about the file to upload
    * @returns Promise that resolves to the storage key for the uploaded file
