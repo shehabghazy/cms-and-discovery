@@ -1,7 +1,8 @@
 // Simple factory for creating and initializing search engine instances
 
 import { SearchEngine } from '../../domain/ports/search-engine/search-engine-port.js';
-import { InMemorySearchEngine, OpenSearchSearchEngine } from './index.js';
+import { InMemorySearchEngine, type InMemorySearchEngineConfig } from './in-memory-search-engine.js';
+import { OpenSearchSearchEngine, type OpenSearchConfig } from './opensearch-search-engine.js';
 
 export type SearchEngineType = 'memory' | 'opensearch';
 
@@ -20,10 +21,21 @@ export class SearchEngineFactory {
 
     switch (type) {
       case 'memory':
-        searchEngine = new InMemorySearchEngine();
+        const memoryConfig: InMemorySearchEngineConfig = { type: 'memory' };
+        searchEngine = new InMemorySearchEngine(memoryConfig);
         break;
       case 'opensearch':
-        searchEngine = new OpenSearchSearchEngine();
+        const opensearchConfig: OpenSearchConfig = {
+          node: process.env.OPENSEARCH_HOST || 'http://localhost:9200',
+          auth: {
+            username: process.env.OPENSEARCH_USERNAME || 'admin',
+            password: process.env.OPENSEARCH_PASSWORD || 'admin'
+          },
+          ssl: {
+            rejectUnauthorized: process.env.OPENSEARCH_NODE_ENV === 'production'
+          }
+        };
+        searchEngine = new OpenSearchSearchEngine(opensearchConfig);
         break;
       default:
         throw new Error(`Unsupported search engine type: ${type}`);

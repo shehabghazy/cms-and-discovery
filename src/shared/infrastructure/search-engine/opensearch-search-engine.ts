@@ -9,6 +9,13 @@ import {
   IndexDefinition
 } from '../../domain/ports/search-engine/index.js';
 
+export type OpenSearchConfig = {
+  node: string;
+  auth?: { username: string; password: string };
+  ssl: { rejectUnauthorized: boolean };
+  indexPrefix?: string;
+};
+
 // --- Index Definitions ---
 // These are the mappings structured for OpenSearch.
 
@@ -80,36 +87,19 @@ const episodesIndex: IndexDefinition = {
 
 /**
  * OpenSearchSearchEngine provides a concrete implementation of the SearchEngine
- * abstract class for interacting with an OpenSearch cluster.
+ * interface for interacting with an OpenSearch cluster.
  */
-export class OpenSearchSearchEngine extends SearchEngine {
-  protected readonly config = {
-    node: process.env.OPENSEARCH_HOST || 'http://localhost:9200',
-    auth: {
-      username: process.env.OPENSEARCH_USERNAME || 'admin',
-      password: process.env.OPENSEARCH_PASSWORD || 'admin'
-    },
-    ssl: {
-      rejectUnauthorized: process.env.OPENSEARCH_NODE_ENV === 'production'
-    }
-  };
+export class OpenSearchSearchEngine implements SearchEngine {
+  private readonly indexersMapper: Map<IndexName, IndexDefinition>;
 
-  protected readonly indexersMapper: Map<IndexName, IndexDefinition>;
-  private readonly client: Client;
-
-  /**
-   * Constructs the OpenSearch search engine with environment-based configuration.
-   */
-  constructor() {
-    super();
-    
-    // Initialize client with configuration
-    this.client = new Client({
-      node: this.config.node,
-      auth: this.config.auth,
-      ssl: this.config.ssl,
-    });
-
+  constructor(
+    protected readonly config: OpenSearchConfig,
+    private readonly client = new Client({
+      node: config.node,
+      auth: config.auth,
+      ssl: { rejectUnauthorized: config.ssl.rejectUnauthorized },
+    })
+  ) {
     // Map index names to their definitions
     this.indexersMapper = new Map([
       ['programs', programsIndex],
@@ -118,11 +108,20 @@ export class OpenSearchSearchEngine extends SearchEngine {
   }
 
   /**
+   * Initialize the search engine and bootstrap indexes.
+   */
+  async initialize(): Promise<void> {
+    console.log(`🚀 Starting search engine initialization...`);
+    await this.bootstrapIndexes(this.indexersMapper);
+    console.log(`🎉 Search engine initialization completed`);
+  }
+
+  /**
    * Creates indexes in OpenSearch if they do not already exist.
-   * This method is called by the `initialize` base method.
+   * This method is called by the `initialize` method.
    * @param indexersMapper - A map of index names to their definitions.
    */
-  protected async bootstrapIndexes(indexersMapper: Map<IndexName, IndexDefinition>): Promise<void> {
+  private async bootstrapIndexes(indexersMapper: Map<IndexName, IndexDefinition>): Promise<void> {
     console.log(`🌐 Bootstrapping ${indexersMapper.size} indexes for OpenSearch engine at ${this.config.node}`);
     
     for (const [indexName, indexDefinition] of indexersMapper.entries()) {

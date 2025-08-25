@@ -9,6 +9,10 @@ import {
   IndexNotFoundError
 } from '../../domain/ports/search-engine/index.js';
 
+export type InMemorySearchEngineConfig = {
+  type: 'memory';
+};
+
 interface IndexData {
   definition: IndexDefinition;
   documents: Map<string, Doc>;
@@ -18,24 +22,33 @@ interface IndexData {
  * In-memory implementation of SearchEngine for testing and development.
  * Provides basic indexing functionality without external dependencies.
  */
-export class InMemorySearchEngine extends SearchEngine {
+export class InMemorySearchEngine implements SearchEngine {
   private indexes = new Map<IndexName, IndexData>();
-  
-  // Define the configuration as required by the abstract class
-  protected readonly config = {
-    type: 'memory'
-  };
-  
-  // Define the indexes mapper as required by the abstract class
-  protected readonly indexersMapper = new Map<IndexName, IndexDefinition>([
-    ['programs', { mappings: {}, settings: {} }],
-    ['episodes', { mappings: {}, settings: {} }]
-  ]);
+  private readonly indexersMapper: Map<IndexName, IndexDefinition>;
+
+  constructor(
+    protected readonly config: InMemorySearchEngineConfig = { type: 'memory' }
+  ) {
+    // Map index names to their definitions
+    this.indexersMapper = new Map<IndexName, IndexDefinition>([
+      ['programs', { mappings: {}, settings: {} }],
+      ['episodes', { mappings: {}, settings: {} }]
+    ]);
+  }
+
+  /**
+   * Initialize the search engine and bootstrap indexes.
+   */
+  async initialize(): Promise<void> {
+    console.log(`🚀 Starting search engine initialization...`);
+    await this.bootstrapIndexes(this.indexersMapper);
+    console.log(`🎉 Search engine initialization completed`);
+  }
 
   /**
    * Bootstrap multiple indexes with their definitions (idempotent).
    */
-  protected async bootstrapIndexes(indexersMapper: Map<IndexName, IndexDefinition>): Promise<void> {
+  private async bootstrapIndexes(indexersMapper: Map<IndexName, IndexDefinition>): Promise<void> {
     console.log(`📝 Bootstrapping ${indexersMapper.size} indexes for in-memory search engine`);
     for (const [name, definition] of indexersMapper) {
       console.log(`🔧 Creating index: ${name}`);
